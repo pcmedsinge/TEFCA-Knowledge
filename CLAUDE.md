@@ -1,0 +1,1 @@
+Read PROJECT.md and CONTENT.md before doing anything else.
