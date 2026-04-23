@@ -185,6 +185,8 @@ Gap analysis + policy turbulence + full polish pass. Tag v1.0 on completion.
 ## Parallel Track — LinkedIn Content Plan
 Tracked in `POSTS.md`. Each post tied to a phase.
 
+**Posting timing (decided 2026-04-23):** Do NOT post any of these until Phase 3 ships. Rationale: Phase 1 (Problem Wall) alone is table-stakes for healthcare interop content; Phase 3's "TEFCA today is C-CDA, here's where FHIR fits" is the unique differentiator that makes the project worth sharing. Launch post = the Phase 3 idea below. Phase 1 and 2 posts become retrospective deep-dives after the launch. Phase 4 and 5 posts drip as those phases ship.
+
 | Phase Shipped | Post Idea |
 |---|---|
 | 1 | "Why I built a TEFCA knowledge hub — and what the Problem Wall says about US healthcare" |
