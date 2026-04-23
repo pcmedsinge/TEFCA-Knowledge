@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEFCA + FHIR + Clinical AI — A Practitioner's Knowledge Hub</title>
+<meta name="description" content="A deep-dive on TEFCA today and what it's becoming — for healthcare IT professionals and clinicians. Document-based reality, FHIR transition, and Clinical AI implications. Every claim sourced.">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  :root {
+    --bg: #0a0e1a;
+    --surface: #11172a;
+    --surface-2: #161d33;
+    --border: #1f2a44;
+    --text: #cbd5e1;
+    --text-strong: #f1f5f9;
+    --text-muted: #94a3b8;
+    --accent: #4ec9b0;
+    --accent-dim: #3a9b88;
+    --accent-bg: rgba(78, 201, 176, 0.08);
+    --max-width: 920px;
+    --nav-height: 60px;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4 {
+    color: var(--text-strong);
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 0 0 0.5em;
+  }
+  h1 { font-size: 2.4rem; letter-spacing: -0.02em; }
+  h2 { font-size: 1.8rem; letter-spacing: -0.015em; margin-top: 0.4em; }
+  h3 { font-size: 1.25rem; }
+  p { margin: 0 0 1em; }
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s;
+  }
+  a:hover { border-bottom-color: var(--accent); }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  strong { color: var(--text-strong); font-weight: 600; }
+  em { color: var(--text-muted); font-style: italic; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.9em;
+    background: var(--surface-2);
+    padding: 1px 6px;
+    border-radius: 3px;
+    color: var(--text-strong);
+  }
+
+  .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+  main section {
+    padding: 96px 0;
+    scroll-margin-top: var(--nav-height);
+    border-bottom: 1px solid var(--border);
+  }
+  main section:last-of-type { border-bottom: none; }
+
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 14, 26, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    height: var(--nav-height);
+    display: flex;
+    align-items: center;
+  }
+  .nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .nav-brand {
+    color: var(--text-strong);
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-bottom: none;
+  }
+  .nav-brand:hover { border-bottom: none; }
+  .nav-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-links a {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    border-bottom: none;
+    padding: 4px 0;
+    transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--text-strong); border-bottom: none; }
+  .nav-links a.active { color: var(--accent); }
+
+  .hero { padding: 140px 0 100px; }
+  .hero h1 { margin-bottom: 24px; max-width: 760px; }
+  .hero .lead { font-size: 1.15rem; color: var(--text); max-width: 720px; margin-bottom: 24px; }
+  .hero .quick-jump { color: var(--text-muted); font-size: 0.9rem; margin-top: 32px; }
+  .hero .quick-jump a { color: var(--text-muted); }
+  .hero .quick-jump a:hover { color: var(--accent); }
+  .hero .quick-jump span { color: var(--border); margin: 0 8px; }
+  .tagline {
+    display: inline-block;
+    color: var(--accent);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+  }
+
+  .section-eyebrow {
+    display: inline-block;
+    color: var(--accent);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+  }
+  .section-intro {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    max-width: 720px;
+  }
+
+  .scenarios { display: grid; gap: 32px; margin-top: 40px; }
+  .scenario {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 32px;
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 24px;
+  }
+  .scenario-number {
+    color: var(--accent);
+    font-size: 1.4rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .scenario h3 { margin-top: 4px; }
+  .scenario .vignette { color: var(--text); }
+  .stat-block {
+    background: var(--accent-bg);
+    border-left: 3px solid var(--accent);
+    padding: 20px 24px;
+    margin: 20px 0 16px;
+    border-radius: 0 6px 6px 0;
+  }
+  .stat-number {
+    color: var(--accent);
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-label { color: var(--text); font-size: 0.95rem; margin-bottom: 12px; }
+  .stat-effect {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+  }
+  .citation {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 0;
+    margin-top: 8px;
+  }
+
+  .stub-message {
+    color: var(--text-muted);
+    background: var(--surface-2);
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    padding: 32px;
+    margin-top: 24px;
+    text-align: center;
+  }
+  .stub-message strong { color: var(--text); }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 48px 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+  footer .container > * { margin: 0 0 8px; }
+  .footer-version {
+    color: var(--accent);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 768px) {
+    body { font-size: 16px; }
+    h1 { font-size: 1.9rem; }
+    h2 { font-size: 1.5rem; }
+    main section { padding: 64px 0; }
+    .hero { padding: 80px 0 48px; }
+    .container { padding: 0 16px; }
+    .nav-links { gap: 14px; }
+    .nav-links a { font-size: 0.8rem; }
+    .nav-brand { font-size: 0.85rem; }
+    .scenario { grid-template-columns: 1fr; padding: 24px; gap: 12px; }
+    .scenario-number { font-size: 1.1rem; margin-bottom: -4px; }
+    .stat-number { font-size: 1.7rem; }
+    .hero .quick-jump { font-size: 0.85rem; }
+  }
+  @media (max-width: 480px) {
+    .nav-links { gap: 10px; }
+    .nav-links a { font-size: 0.75rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Main navigation">
+  <div class="container">
+    <a href="#hero" class="nav-brand">TEFCA · FHIR · Clinical AI</a>
+    <ul class="nav-links">
+      <li><a href="#problem">Problem</a></li>
+      <li><a href="#ecosystem">Ecosystem</a></li>
+      <li><a href="#flows">Query Flows</a></li>
+      <li><a href="#ai">Clinical AI</a></li>
+      <li><a href="#road-ahead">Road Ahead</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+
+<section id="hero" class="hero">
+  <div class="container">
+    <span class="tagline">A practitioner's deep-dive · April 2026</span>
+    <h1>TEFCA + FHIR + Clinical AI — what's actually happening, and what's actually changing.</h1>
+    <p class="lead">You're a healthcare IT practitioner or clinician. You know what interoperability failure looks like from the inside — the duplicate CT, the conflicting med list, the patient who can't be matched across organizations.</p>
+    <p class="lead">This is a deep-dive on what TEFCA <em>is</em> in 2026 (mostly C-CDA over IHE) and what it's <em>becoming</em> (Facilitated FHIR via UDAP). No marketing language. Every claim sourced.</p>
+    <p class="quick-jump">
+      Jump to:
+      <a href="#problem">Problem</a><span>·</span>
+      <a href="#ecosystem">Ecosystem</a><span>·</span>
+      <a href="#flows">Query Flows</a><span>·</span>
+      <a href="#ai">Clinical AI</a><span>·</span>
+      <a href="#road-ahead">Road Ahead</a>
+    </p>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="container">
+    <span class="section-eyebrow">01 · The Problem Wall</span>
+    <h2>Five things every healthcare IT practitioner has seen</h2>
+    <p class="section-intro">Each scenario below is grounded in a peer-reviewed or institutional source. The point isn't to argue these problems exist — you've seen them. The point is to size them.</p>
+
+    <div class="scenarios">
+
+      <article class="scenario">
+        <div class="scenario-number">01</div>
+        <div>
+          <h3>The repeat ED scan</h3>
+          <p class="vignette">A 54-year-old presents to Hospital A with abdominal pain. She had an abdominal CT three weeks ago at unaffiliated Hospital B across town. Hospital A's ED has no view into Hospital B's PACS or report. She gets another CT. The first one is sitting in a record twelve miles away.</p>
+          <div class="stat-block">
+            <div class="stat-number">14.7%</div>
+            <div class="stat-label">of ED CT scans are repeats — same study, same body region, within 30 days at unaffiliated EDs (CA + FL, 2007–2010)</div>
+            <div class="stat-effect">HIE participation cut that by <strong>59%</strong> for CT, <strong>44%</strong> for ultrasound, <strong>67%</strong> for chest x-ray.</div>
+          </div>
+          <p class="citation">Lammers EJ, Adler-Milstein J, Kocher KE. <em>Medical Care</em>. 2014;52(3):227-34.</p>
+        </div>
+      </article>
+
+      <article class="scenario">
+        <div class="scenario-number">02</div>
+        <div>
+          <h3>The discharge med list nobody trusts</h3>
+          <p class="vignette">A 72-year-old is discharged after a CHF admission on nine medications. Her PCP's chart shows seven different ones. Her daughter brings in a third list from the assisted-living facility. Three caregivers, three lists, no source of truth. Everyone makes their best guess.</p>
+          <div class="stat-block">
+            <div class="stat-number">54%</div>
+            <div class="stat-label">of admitted patients have at least one potentially harmful medication discrepancy during their stay</div>
+            <div class="stat-effect"><strong>75%</strong> of those discrepancies happen at discharge. <strong>72%</strong> are rooted in errors taking the medication history — not in the reconciliation step itself.</div>
+          </div>
+          <p class="citation">Pippins JR, Gandhi TK, Hamann C, et al. <em>Journal of General Internal Medicine</em>. 2008;23(9):1414-1422.</p>
+        </div>
+      </article>
+
+      <article class="scenario">
+        <div class="scenario-number">03</div>
+        <div>
+          <h3>The patient who can't be matched</h3>
+          <p class="vignette">A patient with a common name moves states and presents to a new health system. Their prior records exist within the destination QHIN's reach, but the demographic match isn't confident enough to return them. The new provider redoes the workup from scratch.</p>
+          <div class="stat-block">
+            <div class="stat-number">50%</div>
+            <div class="stat-label">match rates between organizations can drop this low — even between organizations using the same EHR vendor</div>
+            <div class="stat-effect">Within a single facility, duplicate-record rates average <strong>18%</strong>. <strong>1 in 5</strong> hospital CIOs report patient harm from mismatches in the prior year.</div>
+          </div>
+          <p class="citation">Pew Charitable Trusts. <em>Enhanced Patient Matching Is Critical to Achieving Full Promise of Digital Health Records</em>. October 2018.</p>
+        </div>
+      </article>
+
+      <article class="scenario">
+        <div class="scenario-number">04</div>
+        <div>
+          <h3>The chronically ill patient seeing four specialists</h3>
+          <p class="vignette">A diabetic patient sees endocrinology, cardiology, nephrology, and primary care. Labs are duplicated quarterly. The cardiologist's diuretic adjustment doesn't make it back to the endocrinologist's chart. A preventable ED visit happens. Each provider holds half the picture.</p>
+          <div class="stat-block">
+            <div class="stat-number">$4,542</div>
+            <div class="stat-label">higher annual healthcare spending per chronically ill patient with highly fragmented PCP-referral patterns vs least-fragmented (US commercial claims, n=506,376)</div>
+            <div class="stat-effect">Highly fragmented care: <strong>32.8% vs 25.9%</strong> departures from clinical best practice and <strong>9.1% vs 7.1%</strong> preventable hospitalization rate.</div>
+          </div>
+          <p class="citation">Frandsen BR, Joynt KE, Rebitzer JB, Jha AK. <em>American Journal of Managed Care</em>. 2015;21(5):355-62.</p>
+        </div>
+      </article>
+
+      <article class="scenario">
+        <div class="scenario-number">05</div>
+        <div>
+          <h3>The C-CDA that arrived without the latest update</h3>
+          <p class="vignette">A specialist receives a C-CDA summary for a referred patient. The document is structurally valid. It just doesn't include the problem-list additions from last month's hospitalization across town — those exist in the originating EHR but never made it into the exchanged document. The first 20 minutes of the visit are reconstruction work.</p>
+          <div class="stat-block">
+            <div class="stat-number">2026</div>
+            <div class="stat-label">— and TEFCA exchange is still primarily document-based (C-CDA over IHE XCA/XCPD), not native FHIR</div>
+            <div class="stat-effect">Facilitated FHIR SOP v2.0 (draft, March 2026) is the migration path; UDAP support extends through 2027. Until critical mass arrives, dual-pipeline reality and lossy round-trips between document and structured data.</div>
+          </div>
+          <p class="citation">2026 ASTP Annual Meeting recap; Facilitated FHIR Implementation SOP v2.0 (draft).</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="ecosystem">
+  <div class="container">
+    <span class="section-eyebrow">02 · The TEFCA Ecosystem</span>
+    <h2>Eleven QHINs, one Common Agreement, and the layer cake underneath</h2>
+    <div class="stub-message">
+      <strong>Coming in Phase 2.</strong><br>
+      Interactive ecosystem map: ONC → RCE (Sequoia Project) → 11 Designated QHINs → Participants → Subparticipants. Common Agreement v2.1 as the legal spine; six Exchange Purposes as the use-case axes (Treatment, Payment, Health Care Operations, Public Health, Individual Access Services, Government Benefits Determination).
+    </div>
+  </div>
+</section>
+
+<section id="flows">
+  <div class="container">
+    <span class="section-eyebrow">03 · Query Flows</span>
+    <h2>Two flows, side by side: today's documents, tomorrow's FHIR</h2>
+    <div class="stub-message">
+      <strong>Coming in Phase 3.</strong><br>
+      Document flow (XCPD patient discovery → XCA document query → C-CDA payload) shown next to the emerging Facilitated FHIR flow (UDAP Dynamic Client Registration → RCE Directory → FHIR Bundle with US Core v3.1.1+ resources). Honest about which is dominant in 2026, and which is the trajectory.
+    </div>
+  </div>
+</section>
+
+<section id="ai">
+  <div class="container">
+    <span class="section-eyebrow">04 · The Clinical AI Unlock</span>
+    <h2>What TEFCA actually unlocks for Clinical AI — and what it doesn't</h2>
+    <div class="stub-message">
+      <strong>Coming in Phase 4.</strong><br>
+      RAG and Agent workflows in clinical settings, grounded in published evidence (PLOS Digital Health systematic review; Doctronic; Wong et al. on the Epic Sepsis Model). Honest section on what TEFCA does <em>not</em> solve: data quality, semantic normalization, consent-at-scale, patient matching, and the document-to-FHIR transition burden.
+    </div>
+  </div>
+</section>
+
+<section id="road-ahead">
+  <div class="container">
+    <span class="section-eyebrow">05 · The Road Ahead</span>
+    <h2>Gaps, regulatory turbulence, and what's worth watching</h2>
+    <div class="stub-message">
+      <strong>Coming in Phase 5.</strong><br>
+      Patient matching gap, consent granularity, adoption unevenness, the C-CDA-to-FHIR transition. Proposed removal of the TEFCA Manner Exception (HTI deregulatory rule, comment period closed Feb 27, 2026). The CMS Health Tech Ecosystem and how it interacts with TEFCA. Final v1.0 polish.
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p class="footer-version">v1.0 — evolving</p>
+    <p>Last updated 2026-04-23. Phase 1 (Foundation + Problem Wall) shipped.</p>
+    <p>Every claim on this page is sourced. See <code>CONTENT.md</code> in the repository for citations and methodology notes.</p>
+    <p>TEFCA, FHIR, USCDI, and related terms are policy and standards artifacts of HL7, ONC, and The Sequoia Project. This site is independent and not affiliated with any of them.</p>
+  </div>
+</footer>
+
+<script>
+  (function() {
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const sections = [];
+    const linkById = {};
+    navLinks.forEach(link => {
+      const id = link.getAttribute('href').replace('#', '');
+      const section = document.getElementById(id);
+      if (section) {
+        sections.push(section);
+        linkById[id] = link;
+      }
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const link = linkById[entry.target.id];
+        if (!link) return;
+        if (entry.isIntersecting) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+        }
+      });
+    }, {
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    });
+
+    sections.forEach(s => observer.observe(s));
+  })();
+</script>
+
+</body>
+</html>

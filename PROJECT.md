@@ -7,10 +7,10 @@
 ---
 
 ## Status
-- **Current Phase:** 0 of 5 — Phase 1-ready (3 Phase 3-prep items remain)
-- **Last Completed:** Phase 0 credibility-critical work — all 11 QHINs verified, stats reconciled, Problem Wall citations sourced (Pew, Lammers, Jung, Frandsen, Pippins), Clinical AI references (PLOS RAG review, Doctronic, Wong/Epic Sepsis)
-- **Next Up:** Either (a) close remaining Phase 3-prep items (IHE profiles in QTF v2.1, FHIR R4 resource types per query flow, consent granularity §7.2), then start Phase 1; or (b) start Phase 1 immediately and defer Phase 3-prep
-- **Version:** v0.1 (pre-release — no phases shipped yet)
+- **Current Phase:** 1 of 5 — code complete on `phase-1-foundation`, awaiting merge to `main` + `v0.1` tag for DoD
+- **Last Completed:** Phase 1 — `index.html` with Hero + Problem Wall (5 sourced scenarios from Pew, Lammers, Pippins, Frandsen, plus the C-CDA reality scenario) + 4 stub sections + sticky nav + dark professional theme + responsive foundation. Visually verified in browser.
+- **Next Up:** Either (a) merge `phase-1-foundation` → `main` and tag `v0.1`, then start Phase 2 (TEFCA Ecosystem map); or (b) close the 3 deferred Phase 0 items (IHE profiles in QTF v2.1, FHIR R4 resource types per query flow, consent granularity §7.2) before Phase 2
+- **Version:** v0.1 (pending — to be tagged at merge)
 
 ---
 
@@ -105,13 +105,13 @@ Front-load all fact-gathering so build phases aren't blocked by verification. Ou
 ### Phase 1 — Foundation + Problem Wall
 **Est. time:** 3-4 hours
 Shell + theme + navigation + the first real content section (Problem Wall). First commit to `main` should have something worth showing.
-- [ ] HTML skeleton, all sections stubbed
-- [ ] Sticky navigation with smooth scroll
-- [ ] CSS variables, typography, dark professional theme
-- [ ] Responsive foundation (mobile + desktop)
-- [ ] Problem Wall: 4-5 clinical scenarios, specific and recognizable
-- [ ] Statistics grounded in sourced data from `CONTENT.md`
-- [ ] v1.0 tag in footer
+- [x] HTML skeleton, all sections stubbed
+- [x] Sticky navigation with smooth scroll
+- [x] CSS variables, typography, dark professional theme
+- [x] Responsive foundation (mobile + desktop)
+- [x] Problem Wall: 4-5 clinical scenarios, specific and recognizable
+- [x] Statistics grounded in sourced data from `CONTENT.md`
+- [x] v1.0 tag in footer
 
 **Definition of Done:** Shell deployable to GitHub Pages, Problem Wall fully content-complete and visually polished.
 
