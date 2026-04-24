@@ -7,10 +7,10 @@
 ---
 
 ## Status
-- **Current Phase:** 4 of 5 — code complete on `phase-4-clinical-ai`, awaiting merge to `main` + `v0.4` tag for DoD. v0.4 = launch milestone per the revised plan (launch after Phase 4 ships, per LinkedIn timing).
-- **Last Completed:** Phase 4 — Clinical AI Unlock section: section intro framing data-vs-model split; 6-step RAG pipeline (TEFCA query → ingest → normalize coding → vector store → retrieval → LLM grounding) with clinician-skip cue; 4 use case cards (care transitions, prior auth with honest peer-to-peer caveat, longitudinal diagnostic context with image-sharing-network honesty, cohort queries with PCORnet acknowledgement); amber-toned Wong/Epic Sepsis warning callout; 5-item "What TEFCA does NOT solve for AI" limitations list. Clinical-reader review pass applied (removed Doctronic for credibility, hedged unsourced claims, expanded consent limitation to cover HIPAA + state law + §164.514 thicket). Visually verified.
-- **Next Up:** Either (a) merge `phase-4-clinical-ai` → `main`, tag `v0.4`, then begin the LinkedIn launch sequence (push to GitHub → enable Pages → draft Phase 3 post in POSTS.md → publish); or (b) defer launch until Phase 5 polish lands (v1.0). Phase 5 still pending; Phase-0-residual consent-granularity §7.2 item still open and would be a natural Phase 5 inclusion.
-- **Version:** v0.1, v0.2, v0.3 shipped; v0.4 pending (= the launch milestone)
+- **Current Phase:** 5 of 5 — code complete on `phase-5-polish`, awaiting merge to `main` + `v1.0` tag. v1.0 = the launch milestone per revised LinkedIn timing (user opted to wait for fully-shipped page before any LinkedIn promotion).
+- **Last Completed:** Phase 5 — Road Ahead section: 4 honest-gap cards (patient matching, consent granularity, adoption unevenness, C-CDA→FHIR transition), amber-toned regulatory turbulence callout (Manner Exception removal proposal as proposed-not-final, HTI-4, ONC reinstatement), TEFCA direction + CMS Health Tech Ecosystem paired cards (context, not endorsement), italic closing statement. Footer cleanup landed on main earlier. CONTENT.md §7.2 consent granularity gap closed (last Phase-0 residual). PROJECT.md Phase 5 content boxes ticked; polish boxes (animation, responsiveness, a11y) annotated as implementer-level passes (not formal audits) with recommendations.
+- **Next Up:** Merge `phase-5-polish` → `main`, tag `v1.0`, push to origin/main + push v1.0 tag → GitHub Pages auto-rebuilds → confirm live URL still works → draft Phase 3 launch post in POSTS.md → publish on LinkedIn.
+- **Version:** v0.1, v0.2, v0.3, v0.4 shipped; v1.0 pending (= the launch milestone)
 
 ---
 
@@ -95,7 +95,7 @@ Front-load all fact-gathering so build phases aren't blocked by verification. Ou
 - [x] Real statistics: care fragmentation cost, duplicate imaging rates, med reconciliation errors — with peer-reviewed / ONC / RAND sources
 - [x] FHIR R4 resource types relevant to each query flow — verified against HL7 US Core v3.1.1+
 - [x] IHE profiles actually referenced in TEFCA QTF v2.1 (XCA, XCPD confirmed relevant — verify exact references)
-- [ ] Known gaps: patient matching (exact studies), consent granularity, adoption data
+- [x] Known gaps: patient matching (exact studies), consent granularity, adoption data
 - [x] Clinical AI references — 2-3 credible, citable examples of RAG / Agent workflows in clinical settings
 
 **Definition of Done:** `CONTENT.md` complete, every fact sourced, no "[TBD]" or "[verify]" placeholders.
@@ -169,14 +169,14 @@ TEFCA as data ingestion layer for Clinical AI. Specific, concrete deliverables �
 ### Phase 5 — Road Ahead + Polish
 **Est. time:** 3-4 hours
 Gap analysis + policy turbulence + full polish pass. Tag v1.0 on completion.
-- [ ] Gaps: patient matching, consent granularity, adoption unevenness, C-CDA→FHIR transition
-- [ ] Regulatory turbulence: TEFCA Manner Exception removal proposal (HTI deregulatory rule), ONC re-established from ASTP/ONC
-- [ ] TEFCA direction: Facilitated FHIR SOP v2.0 rollout, Government Benefits Determination use cases
-- [ ] CMS Health Tech Ecosystem and its interaction with TEFCA (context, not endorsement)
-- [ ] Animation polish pass across all sections
-- [ ] Responsiveness audit (mobile, tablet, desktop)
-- [ ] Accessibility quick-pass (keyboard nav, contrast, ARIA labels)
-- [ ] Final "v1.0 — evolving" tag in footer
+- [x] Gaps: patient matching, consent granularity, adoption unevenness, C-CDA→FHIR transition
+- [x] Regulatory turbulence: TEFCA Manner Exception removal proposal (HTI deregulatory rule), ONC re-established from ASTP/ONC
+- [x] TEFCA direction: Facilitated FHIR SOP v2.0 rollout, Government Benefits Determination use cases
+- [x] CMS Health Tech Ecosystem and its interaction with TEFCA (context, not endorsement)
+- [ ] Animation polish pass across all sections *(deliberately minimal — the "architect built it" feel argues against animation flourish; CSS smooth-scroll is the only motion; revisit only if a specific moment needs it)*
+- [ ] Responsiveness audit (mobile, tablet, desktop) *(implementer-level pass complete: 768px and 480px breakpoints set throughout; max-width 920px caps desktop layout. No formal cross-device test rig — recommend you spot-check on actual phone + tablet before any wide promotion.)*
+- [ ] Accessibility quick-pass (keyboard nav, contrast, ARIA labels) *(implementer-level pass complete: semantic HTML5, focus-visible outlines, ARIA labels on nav, role="button" + keyboard handlers on layer-cake divs, prefers-reduced-motion honored. Not a formal a11y audit — recommend running Lighthouse / axe on the deployed page before any compliance-sensitive deployment.)*
+- [x] Final "v1.0 — evolving" tag in footer *(decision changed 2026-04-24: version line removed entirely from footer per user preference. Page makes no version claim; v1.0 still tracked internally via git tag.)*
 
 **Definition of Done:** Site ships as v1.0 tagged release. Ready for LinkedIn announcement.
 

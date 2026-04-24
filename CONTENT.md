@@ -239,9 +239,17 @@ The six Exchange Purposes (XPs) currently recognized under TEFCA:
 - **Note on sourcing:** The numbers above are compiled by Pew from their listed primary sources. For Phase 1 publication, cite Pew as the secondary aggregator unless we independently verify each primary (Black Book, CHIME, Audacious Inquiry).
 - **Relevance to TEFCA:** Patient matching is the gating problem for cross-organization data exchange. TEFCA's QHIN framework relies on accurate matching across organizational and EHR boundaries — exactly the cross-org context where Pew shows match rates degrade most.
 
-### 7.2 Consent granularity
-- IAS Provider Requirements SOP v2.1 addresses individual transparency into consent choices
-- **[GAP]** Need to cite how granular consent actually works in practice for non-IAS flows
+### 7.2 Consent granularity (closed 2026-04-24)
+
+**For IAS:** IAS Provider Requirements SOP v2.1 (released 3/17/2026) addresses individual transparency into consent choices — patient-facing, granular, and consistent across IAS flows.
+
+**For non-IAS flows (Treatment, Health Care Operations, Payment, Public Health, Government Benefits Determination):** Consent is largely handled out-of-band by the Responding QHIN based on local consent records, state law, and HIPAA permissions. The Responding QHIN may filter records that are returned (e.g., excluding behavioral health, substance use, or other sensitive segments) without surfacing to the Initiator what was filtered. There is no standardized error code for "filtered on consent grounds" returned to the Initiator at the wire level — the Initiator typically receives a partial response that *looks* complete (this is the "0 alerts" failure mode shown in Phase 3 §10.1 / index.html).
+
+**Implementation reality (2026):** Granular, segment-level consent (HIV, behavioral health, substance use disorder treatment per 42 CFR Part 2, etc.) is implemented inconsistently across QHINs. Some Responding QHINs apply strict filters; others apply minimal filtering and rely on the Initiator's downstream policies. There is no QTF-mandated standard yet for how granular consent must be applied at the QHIN level for non-IAS flows.
+
+**Sources:** RCE TEFCA on FHIR overview page (verified 2026-04-24): https://rce.sequoiaproject.org/rce-tefca-on-fhir/; IAS Provider Requirements SOP v2.1 (referenced in TEFCA Glossary, January 2026); 42 CFR Part 2 substance use disorder confidentiality regulations.
+
+**Methodology note:** This synthesis draws on the RCE pages and Phase 0/3 verification work. For any compliance-sensitive deployment, a manual read of the IAS Provider Requirements SOP v2.1 and any companion consent SOP is recommended — those PDFs could not be directly text-extracted in the Phase 0 environment.
 
 ### 7.3 Adoption unevenness
 - 14K organizations is a fraction of the ~6,000 hospitals + ~200K+ clinician practices in the US

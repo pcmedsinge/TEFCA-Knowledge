@@ -660,6 +660,16 @@
     color: var(--text);
   }
 
+  /* Phase 5: Road Ahead closing statement */
+  .closing-statement {
+    margin: 48px 0 0;
+    padding: 24px 28px;
+    border-top: 1px solid var(--border);
+    color: var(--text);
+    font-size: 1rem;
+    font-style: italic;
+  }
+
   footer {
     border-top: 1px solid var(--border);
     padding: 48px 0;
@@ -1270,11 +1280,58 @@
 <section id="road-ahead">
   <div class="container">
     <span class="section-eyebrow">05 · The Road Ahead</span>
-    <h2>Gaps, regulatory turbulence, and what's worth watching</h2>
-    <div class="stub-message">
-      <strong>Coming in Phase 5.</strong><br>
-      Patient matching gap, consent granularity, adoption unevenness, the C-CDA-to-FHIR transition. Proposed removal of the TEFCA Manner Exception (HTI deregulatory rule, comment period closed Feb 27, 2026). The CMS Health Tech Ecosystem and how it interacts with TEFCA. Final v1.0 polish.
+    <h2>Where TEFCA goes next, where it doesn't, and what to watch</h2>
+    <p class="section-intro">The honest exit from a knowledge hub: what's still broken, what's actively changing, and where to keep watching.</p>
+
+    <h3 class="subsection-heading">The honest gaps</h3>
+    <p class="subsection-intro">Things that exist by design or by 2026 reality, not bugs. Each is its own implementer's problem.</p>
+    <div class="use-case-grid">
+      <article class="use-case-card">
+        <h4>Patient matching</h4>
+        <p>The Phase 1 Pew stat (50% cross-org match rates even with the same EHR vendor) isn't a bug TEFCA can fix — it's the absence of a national patient identifier in US healthcare. TEFCA codifies XCPD (Cross-Community Patient Discovery) but doesn't change the underlying matching problem.</p>
+      </article>
+      <article class="use-case-card">
+        <h4>Consent granularity</h4>
+        <p>For IAS, the IAS Provider Requirements SOP v2.1 addresses individual transparency into consent choices. For non-IAS flows (Treatment, Health Care Operations, Public Health, Government Benefits Determination), consent is largely handled out-of-band by the Responding QHIN — it may filter records (behavioral health, substance use, sensitive segments) without surfacing what was filtered. Granular, segment-level consent is implemented inconsistently across QHINs.</p>
+      </article>
+      <article class="use-case-card">
+        <h4>Adoption unevenness</h4>
+        <p>21,086 organizations live on TEFCA is a fraction of the ~6,000 hospitals and ~200K clinician practices in the US. Specialty coverage is uneven; behavioral health and LTPAC (long-term and post-acute care) lag the acute and ambulatory side. The "TEFCA reaches X%" framing depends on what you count.</p>
+      </article>
+      <article class="use-case-card">
+        <h4>C-CDA → FHIR transition burden</h4>
+        <p>The dual-pipeline reality from Phase 3 isn't going away in 2026 or 2027. Implementers building today design for both XCPD/XCA/C-CDA AND Facilitated FHIR — the migration tax falls on the implementer, not the framework.</p>
+      </article>
     </div>
+
+    <div class="warning-callout">
+      <h3>Regulatory turbulence (2025–2026)</h3>
+      <p>The legal ground TEFCA stands on is shifting while implementations are maturing. Three policy stories worth watching:</p>
+      <ul class="warning-list">
+        <li><strong>TEFCA Manner Exception removal proposal (Dec 2025).</strong> The ASTP/ONC Deregulatory Proposed Rule proposed to remove Subpart D of 45 CFR part 171, which includes the TEFCA Manner Exception (§ 171.403). Comment period closed February 27, 2026. <em>Status: proposed, not yet final.</em> If finalized, the regulatory incentive to route requests through TEFCA changes.</li>
+        <li><strong>HTI-4 Final Rule (Aug 2025).</strong> Published as part of the FY2026 CMS Hospital IPPS Final Rule, effective October 1, 2025. Covers electronic prior auth, e-prescribing, and real-time prescription benefit criteria.</li>
+        <li><strong>ONC reinstatement (March 31, 2026).</strong> HHS reinstated ONC and dropped the "ASTP/ONC" dual title that had been in place since July 2024. The National Coordinator role was un-merged from the Assistant Secretary for Technology Policy. Many 2024–2025 documents still use the ASTP/ONC title — citing them as ONC now is correct but historically annotated.</li>
+      </ul>
+      <p class="callout-source">Sources: <a href="https://www.federalregister.gov/documents/2025/12/29/2025-23896/health-data-technology-and-interoperability-astponc-deregulatory-actions-to-unleash-prosperity" target="_blank" rel="noopener">Federal Register, ASTP/ONC Deregulatory Proposed Rule (Dec 2025)</a>; <a href="https://distilinfo.com/2026/04/06/hhs-reinstates-onc-ends-astp-dual-title/" target="_blank" rel="noopener">HHS reinstates ONC, ends ASTP dual title</a>.</p>
+    </div>
+
+    <h3 class="subsection-heading">TEFCA's forward direction · CMS Health Tech Ecosystem</h3>
+    <p class="subsection-intro">Two parallel tracks shaping what comes next. They are not the same thing.</p>
+    <div class="use-case-grid">
+      <article class="use-case-card">
+        <span class="use-case-tag">TEFCA's path</span>
+        <h4>Facilitated FHIR + Government Benefits Determination</h4>
+        <p>Facilitated FHIR SOP v2.0 rollout (draft March 2026; UDAP-based registration permitted through 2027) is the FHIR migration trajectory. Government Benefits Determination — the newest of the six Exchange Purposes — is the SSA disability-determination use case (SSDI Title II, SSI Title XVI), expected to grow through 2026–2027 as more QHINs implement the GBD SOP.</p>
+      </article>
+      <article class="use-case-card">
+        <span class="use-case-tag">Parallel effort</span>
+        <h4>CMS Health Tech Ecosystem</h4>
+        <p>A 2025 administration initiative: a voluntary information-sharing blueprint with broad healthcare and tech-company participation (early Humana + Epic data-sharing features launched in 2025). Its interaction with TEFCA is still being determined — voluntary CMS-blessed pathways may compete with or complement the more mandate-driven TEFCA path. Worth tracking; not yet a substitute. <em>Context, not endorsement.</em></p>
+      </article>
+    </div>
+
+    <p class="closing-statement">TEFCA in 2026 is real, growing, and turbulent. Re-verify any TEFCA fact before publication or client work — including everything on this page.</p>
+
   </div>
 </section>
 
@@ -1282,7 +1339,6 @@
 
 <footer>
   <div class="container">
-    <p class="footer-version">v1.0 — evolving · April 2026</p>
     <p>Sources cited inline. Full references and methodology notes in the <a href="https://github.com/pcmedsinge/TEFCA-Knowledge" target="_blank" rel="noopener">project repository</a>.</p>
     <p>TEFCA, FHIR, USCDI, and related terms are policy and standards artifacts of HL7, ONC, and The Sequoia Project. This site is independent and not affiliated with any of them.</p>
   </div>
