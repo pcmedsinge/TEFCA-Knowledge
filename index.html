@@ -383,6 +383,127 @@
     letter-spacing: 0.06em;
   }
 
+  /* Phase 3: Query Flows */
+  .flows-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 40px 0 32px;
+  }
+  .flow {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 28px;
+  }
+  .flow h3 {
+    margin: 0 0 4px;
+    font-size: 1.15rem;
+    color: var(--text-strong);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .flow-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 3px;
+    background: var(--surface-2);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+  .flow-tag-future {
+    background: var(--accent-bg);
+    color: var(--accent);
+    border-color: var(--accent-dim);
+  }
+  .flow-protocol {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .flow-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .flow-step {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .flow-step:last-child { border-bottom: none; }
+  .step-num {
+    background: var(--accent-bg);
+    border: 1px solid var(--accent-dim);
+    color: var(--accent);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    font-variant-numeric: tabular-nums;
+    margin-top: 2px;
+  }
+  .step-body h4 {
+    margin: 0 0 6px;
+    font-size: 0.95rem;
+    color: var(--text-strong);
+  }
+  .step-body p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+  .step-variant {
+    display: block;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px dashed var(--border);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+  .flow-issues {
+    display: grid;
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .honest-callout {
+    background: var(--accent-bg);
+    border: 1px solid var(--accent-dim);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 28px;
+    margin-top: 48px;
+  }
+  .honest-callout h3 {
+    margin: 0 0 12px;
+    color: var(--accent);
+    font-size: 1.1rem;
+  }
+  .honest-callout p {
+    color: var(--text);
+    margin: 0 0 12px;
+  }
+  .honest-callout p:last-child { margin: 0; }
+  .callout-source {
+    font-size: 0.85rem !important;
+    color: var(--text-muted) !important;
+  }
+
   footer {
     border-top: 1px solid var(--border);
     padding: 48px 0;
@@ -420,6 +541,14 @@
     .docs-grid, .xp-grid { grid-template-columns: 1fr; gap: 16px; }
     .doc-card, .xp-card { padding: 20px; }
     .subsection-heading { margin-top: 48px; font-size: 1.2rem; }
+    .flows-comparison { grid-template-columns: 1fr; gap: 16px; }
+    .flow { padding: 20px; }
+    .flow h3 { font-size: 1.05rem; }
+    .flow-step { grid-template-columns: 28px 1fr; gap: 10px; padding: 12px 0; }
+    .step-num { width: 26px; height: 26px; font-size: 0.78rem; }
+    .step-body h4 { font-size: 0.9rem; }
+    .step-body p { font-size: 0.85rem; }
+    .honest-callout { padding: 20px; }
   }
   @media (max-width: 480px) {
     .nav-links { gap: 10px; }
@@ -688,10 +817,175 @@
   <div class="container">
     <span class="section-eyebrow">03 · Query Flows</span>
     <h2>Two flows, side by side: today's documents, tomorrow's FHIR</h2>
-    <div class="stub-message">
-      <strong>Coming in Phase 3.</strong><br>
-      Document flow (XCPD patient discovery → XCA document query → C-CDA payload) shown next to the emerging Facilitated FHIR flow (UDAP Dynamic Client Registration → RCE Directory → FHIR Bundle with US Core v3.1.1+ resources). Honest about which is dominant in 2026, and which is the trajectory.
+    <p class="section-intro">Most TEFCA writeups assume FHIR. Production reality in 2026 is still C-CDA. Here are both flows side by side, and the gap between them — written with enough detail that a TEFCA implementer would not find errors, but simplified to expose the architecture rather than every spec-by-spec wire detail.</p>
+
+    <div class="flows-comparison">
+
+      <div class="flow flow-a">
+        <h3>Flow A — Document-based <span class="flow-tag">2026 reality</span></h3>
+        <p class="flow-protocol">XCPD → XCA → C-CDA XML payload</p>
+        <ol class="flow-steps">
+          <li class="flow-step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <h4>Initiator queries</h4>
+              <p>Clinician at Hospital A queries via the EHR. The query routes through Hospital A's QHIN.</p>
+            </div>
+          </li>
+          <li class="flow-step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <h4>XCPD patient discovery</h4>
+              <p>Initiator's QHIN broadcasts XCPD (Cross-Community Patient Discovery) to all other QHINs: "do you know patient X?" Each QHIN forwards to its Participants based on demographic match logic.</p>
+            </div>
+          </li>
+          <li class="flow-step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <h4>Patient identifiers returned</h4>
+              <p>Matching Participants respond with patient identifiers and HomeCommunityIDs. Initiator's QHIN aggregates and correlates the patient identities across communities.</p>
+            </div>
+          </li>
+          <li class="flow-step">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <h4>XCA document query</h4>
+              <p>Initiator's QHIN sends XCA Query (Cross-Community Access) to each community that returned a match, asking for documents that satisfy the requested Exchange Purpose.</p>
+            </div>
+          </li>
+          <li class="flow-step">
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <h4>C-CDA documents retrieved</h4>
+              <p>XCA Retrieve fetches documents (typically C-CDA XML) from each Responding Participant.</p>
+            </div>
+          </li>
+          <li class="flow-step">
+            <div class="step-num">6</div>
+            <div class="step-body">
+              <h4>Documents returned to clinician</h4>
+              <p>Bundle of C-CDA documents lands at the Initiator. The EHR may render them as PDFs, or — if it supports C-CDA section extraction — pull structured snippets into the chart.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="flow flow-b">
+        <h3>Flow B — Facilitated FHIR <span class="flow-tag flow-tag-future">emerging via SOP v2.0</span></h3>
+        <p class="flow-protocol">RCE Directory → UDAP SSRAA → FHIR R4 / US Core v3.1.1</p>
+        <ol class="flow-steps">
+          <li class="flow-step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <h4>Initiator queries</h4>
+              <p>Same starting point as Flow A — a clinician (or a patient app, in IAS) needs patient X's records.</p>
+            </div>
+          </li>
+          <li class="flow-step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <h4>RCE Directory lookup</h4>
+              <p>Initiator queries the RCE Directory Service for the Responding Node's FHIR endpoints. <span class="step-variant">IAS variant: requesting app may filter to IAS-enabled endpoints only.</span></p>
+            </div>
+          </li>
+          <li class="flow-step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <h4>UDAP SSRAA registration</h4>
+              <p>Initiator presents a TEFCA-issued certificate and registers as a UDAP Trusted Client per the HL7 UDAP Security for Scalable Registration, Authentication, and Authorization Implementation Guide. Receives a <code>client_id</code>. One-time per Responding Node.</p>
+            </div>
+          </li>
+          <li class="flow-step">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <h4>Authentication + access token</h4>
+              <p>Initiator authenticates against the Responding Node's authorization server and receives an OAuth 2.0 access token scoped to the requested Exchange Purpose.</p>
+            </div>
+          </li>
+          <li class="flow-step">
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <h4>FHIR query for Patient</h4>
+              <p><code>GET [base]/Patient?identifier=...&amp;family=...&amp;given=...</code> with the access token. Returns the matched <code>Patient</code> resource (or no match).</p>
+            </div>
+          </li>
+          <li class="flow-step">
+            <div class="step-num">6</div>
+            <div class="step-body">
+              <h4>FHIR queries for clinical resources</h4>
+              <p>Subsequent calls retrieve <code>MedicationRequest</code>, <code>AllergyIntolerance</code>, <code>Condition</code>, <code>Observation</code>, <code>ImagingStudy</code>, <code>DiagnosticReport</code>, <code>Encounter</code> — packaged as FHIR <code>Bundle</code>s. <span class="step-variant">IAS variant: includes <code>Consent</code> via <code>consent_reference</code>. GBD variant: scope narrowed to SSA-determined records per the GBD Implementation SOP.</span></p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
     </div>
+
+    <h3 class="subsection-heading">When things go wrong: latency and silent failures</h3>
+    <p class="subsection-intro">The hard parts aren't in the happy path. These are the realistic failure modes and ballpark timings practitioners actually hit.</p>
+    <div class="flow-issues">
+
+      <article class="scenario">
+        <div class="scenario-number">A</div>
+        <div>
+          <h3>Document-flow latency, end-to-end</h3>
+          <p class="vignette">XCPD broadcast plus sequential XCA query/retrieve roundtrips. Each unaffiliated QHIN adds latency; aggregation across communities adds variance.</p>
+          <div class="stat-block">
+            <div class="stat-number">~30–60s</div>
+            <div class="stat-label">typical end-to-end for a document-flow query touching 3–4 QHINs (implementer ballpark — re-verify against published benchmarks before publication)</div>
+            <div class="stat-effect">Worst case at the clinical decision point: clinician moves on without the data; scan/lab gets repeated.</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="scenario">
+        <div class="scenario-number">B</div>
+        <div>
+          <h3>FHIR-flow per-call vs end-to-end</h3>
+          <p class="vignette">Each FHIR call is fast — but a full clinical picture means multiple calls. Net assembly time can be comparable to the document flow despite the faster wire protocol.</p>
+          <div class="stat-block">
+            <div class="stat-number">&lt;1–3s</div>
+            <div class="stat-label">per FHIR call (implementer ballpark) × 5–10 calls to assemble meds + allergies + problems + imaging + reports</div>
+            <div class="stat-effect">"FHIR is faster" is true only at the per-call level. End-to-end picture-assembly dominates.</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="scenario">
+        <div class="scenario-number">C</div>
+        <div>
+          <h3>No patient match returned</h3>
+          <p class="vignette">XCPD returns nothing for a patient who actually has records elsewhere. Demographic match isn't confident enough across QHINs. Query stops; clinician redoes the workup.</p>
+          <div class="stat-block">
+            <div class="stat-number">50%</div>
+            <div class="stat-label">cross-org patient match rate can drop this low — even between organizations using the same EHR vendor</div>
+            <div class="stat-effect">Same failure mode in Flow A and Flow B: the query never reaches the data.</div>
+          </div>
+          <p class="citation">Pew Charitable Trusts. <a href="https://www.pew.org/en/research-and-analysis/reports/2018/10/02/enhanced-patient-matching-critical-to-achieving-full-promise-of-digital-health-records" target="_blank" rel="noopener"><em>Enhanced Patient Matching Is Critical to Achieving Full Promise of Digital Health Records</em></a>. October 2018.</p>
+        </div>
+      </article>
+
+      <article class="scenario">
+        <div class="scenario-number">D</div>
+        <div>
+          <h3>Consent-filtered response, no alert</h3>
+          <p class="vignette">Responding QHIN withholds records based on consent (sensitive segments, behavioral health, IAS-restricted scope). The Initiator gets a partial response that <em>looks</em> complete. No standardized error surfaces.</p>
+          <div class="stat-block">
+            <div class="stat-number">0 alerts</div>
+            <div class="stat-label">error responses typically returned to the Initiator when a Responding QHIN filters records on consent grounds</div>
+            <div class="stat-effect">Clinician may make decisions on incomplete data without knowing data was withheld. The hardest failure mode to design around.</div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="honest-callout">
+      <h3>The honest annotation</h3>
+      <p>Most TEFCA exchange in 2026 is still <strong>Flow A</strong>. Flow B (Facilitated FHIR) is real and growing, but the SOP v2.0 is still in draft as of March 2026 and UDAP-based registration is permitted only through 2027. Practitioners building today should expect dual-pipeline complexity for at least the next 18–24 months — and design for it explicitly rather than waiting for a clean cutover.</p>
+      <p class="callout-source">Sources: <a href="https://dynamichealthit.com/post/2026-astp-annual-meeting/" target="_blank" rel="noopener">2026 ASTP Annual Meeting recap</a>; <a href="https://rce.sequoiaproject.org/wp-content/uploads/2026/02/SOP-Facilitated-FHIR-Implementation-2.0-Draft-508.pdf" target="_blank" rel="noopener">Facilitated FHIR Implementation SOP v2.0 (draft)</a>.</p>
+    </div>
+
   </div>
 </section>
 

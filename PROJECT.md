@@ -7,10 +7,10 @@
 ---
 
 ## Status
-- **Current Phase:** 3 of 5 — pre-build verification pass complete on `phase-3-flows`. Phase 0 deferred items reduced from 3 to 1 (only consent granularity §7.2 still open).
-- **Last Completed:** Phase 0 IHE/FHIR verification — verified XCPD/XCA MUST-statements against QTF v2.1 (Dec 4, 2025 draft) and Facilitated FHIR mechanics (UDAP SSRAA, RCE Directory Service, US Core v3.1.1, typical resource list) against the RCE TEFCA on FHIR page. CONTENT.md §4.2 and §4.4 substantially expanded with verified material and methodology notes.
-- **Next Up:** Build Phase 3 (Query Flows) on `phase-3-flows` — two parallel flows shown side-by-side (document-based C-CDA over IHE XCPD/XCA + Facilitated FHIR via UDAP SSRAA / RCE Directory). This is the LinkedIn launch-post moment per the timing decision in the Parallel Track section.
-- **Version:** v0.1, v0.2 shipped; v0.3 pending
+- **Current Phase:** 3 of 5 — code complete on `phase-3-flows`, awaiting merge to `main` + `v0.3` tag for DoD. v0.3 = launch-ready content per the LinkedIn timing decision.
+- **Last Completed:** Phase 3 — Query Flows section: 6-step Document-based flow (XCPD → XCA → C-CDA) and 6-step Facilitated FHIR flow (RCE Directory → UDAP SSRAA → FHIR R4 / US Core v3.1.1) shown side-by-side. IAS and GBD variants annotated inline. 4 latency / silent-failure scenario cards (including Pew patient-match stat and the consent-filtered "0 alerts" failure mode). Honest dual-pipeline closing callout. Visually verified.
+- **Next Up:** Either (a) merge `phase-3-flows` → `main`, tag `v0.3`, then begin the LinkedIn launch sequence (push to GitHub → enable Pages → draft Phase 3 post in POSTS.md → publish); or (b) defer launch until Phase 4 (Clinical AI) ships on top of v0.3, then launch with even more substance. Phase 5 (polish) and the Phase-0-residual consent-granularity §7.2 item still pending.
+- **Version:** v0.1, v0.2 shipped; v0.3 pending (= the launch milestone)
 
 ---
 
@@ -134,12 +134,12 @@ Interactive diagram. ONC → RCE (Sequoia Project) → QHINs → Participants �
 ### Phase 3 — Query Flow (Document + FHIR)
 **Est. time:** 5-6 hours
 **Two parallel flows shown side-by-side:** today's document-based exchange (C-CDA over IHE XCA/XCPD) AND the emerging Facilitated FHIR flow (per SOP v2.0). This honesty differentiates this project from everything else on LinkedIn.
-- [ ] Flow A: Document-based — XCPD (patient discovery) → XCA (document query) → C-CDA payload
-- [ ] Flow B: Facilitated FHIR — UDAP dynamic client registration → FHIR endpoints in RCE Directory → FHIR Bundle with US Core v3.1.1+ resources
-- [ ] FHIR resource types labeled: Patient, DocumentReference, Consent, Bundle, MedicationRequest, AllergyIntolerance, ImagingStudy
-- [ ] Treatment vs IAS vs Government Benefits Determination flows differentiated
-- [ ] Realistic latency shown, at least one error/consent scenario
-- [ ] Honest annotation on "document-based is the 2026 reality; FHIR is transitioning"
+- [x] Flow A: Document-based — XCPD (patient discovery) → XCA (document query) → C-CDA payload
+- [x] Flow B: Facilitated FHIR — UDAP dynamic client registration → FHIR endpoints in RCE Directory → FHIR Bundle with US Core v3.1.1+ resources
+- [x] FHIR resource types labeled: Patient, DocumentReference, Consent, Bundle, MedicationRequest, AllergyIntolerance, ImagingStudy
+- [x] Treatment vs IAS vs Government Benefits Determination flows differentiated
+- [x] Realistic latency shown, at least one error/consent scenario
+- [x] Honest annotation on "document-based is the 2026 reality; FHIR is transitioning"
 
 **Definition of Done:** Flow is technically accurate enough that a FHIR practitioner or TEFCA implementer finds no errors.
 
