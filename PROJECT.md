@@ -7,10 +7,10 @@
 ---
 
 ## Status
-- **Current Phase:** 3 of 5 — code complete on `phase-3-flows`, awaiting merge to `main` + `v0.3` tag for DoD. v0.3 = launch-ready content per the LinkedIn timing decision.
-- **Last Completed:** Phase 3 — Query Flows section: 6-step Document-based flow (XCPD → XCA → C-CDA) and 6-step Facilitated FHIR flow (RCE Directory → UDAP SSRAA → FHIR R4 / US Core v3.1.1) shown side-by-side. IAS and GBD variants annotated inline. 4 latency / silent-failure scenario cards (including Pew patient-match stat and the consent-filtered "0 alerts" failure mode). Honest dual-pipeline closing callout. Visually verified.
-- **Next Up:** Either (a) merge `phase-3-flows` → `main`, tag `v0.3`, then begin the LinkedIn launch sequence (push to GitHub → enable Pages → draft Phase 3 post in POSTS.md → publish); or (b) defer launch until Phase 4 (Clinical AI) ships on top of v0.3, then launch with even more substance. Phase 5 (polish) and the Phase-0-residual consent-granularity §7.2 item still pending.
-- **Version:** v0.1, v0.2 shipped; v0.3 pending (= the launch milestone)
+- **Current Phase:** 4 of 5 — code complete on `phase-4-clinical-ai`, awaiting merge to `main` + `v0.4` tag for DoD. v0.4 = launch milestone per the revised plan (launch after Phase 4 ships, per LinkedIn timing).
+- **Last Completed:** Phase 4 — Clinical AI Unlock section: section intro framing data-vs-model split; 6-step RAG pipeline (TEFCA query → ingest → normalize coding → vector store → retrieval → LLM grounding) with clinician-skip cue; 4 use case cards (care transitions, prior auth with honest peer-to-peer caveat, longitudinal diagnostic context with image-sharing-network honesty, cohort queries with PCORnet acknowledgement); amber-toned Wong/Epic Sepsis warning callout; 5-item "What TEFCA does NOT solve for AI" limitations list. Clinical-reader review pass applied (removed Doctronic for credibility, hedged unsourced claims, expanded consent limitation to cover HIPAA + state law + §164.514 thicket). Visually verified.
+- **Next Up:** Either (a) merge `phase-4-clinical-ai` → `main`, tag `v0.4`, then begin the LinkedIn launch sequence (push to GitHub → enable Pages → draft Phase 3 post in POSTS.md → publish); or (b) defer launch until Phase 5 polish lands (v1.0). Phase 5 still pending; Phase-0-residual consent-granularity §7.2 item still open and would be a natural Phase 5 inclusion.
+- **Version:** v0.1, v0.2, v0.3 shipped; v0.4 pending (= the launch milestone)
 
 ---
 
@@ -148,14 +148,14 @@ Interactive diagram. ONC → RCE (Sequoia Project) → QHINs → Participants �
 ### Phase 4 — Clinical AI Unlock
 **Est. time:** 5-7 hours
 TEFCA as data ingestion layer for Clinical AI. Specific, concrete deliverables — not hype. Acknowledge that C-CDA-dominant data requires normalization before it's AI-ready.
-- [ ] RAG pipeline diagram: TEFCA → C-CDA/FHIR ingestion → Normalization (USCDI v3) → Vector store → Retrieval → LLM
-- [ ] Agent workflow example: clinical task requiring multi-source queries via TEFCA
-- [ ] 3-4 concrete use cases across clinical workflows:
-  - [ ] Care transitions / med reconciliation
-  - [ ] Prior authorization automation
-  - [ ] Clinical context for diagnostic AI (incl. longitudinal imaging priors)
-  - [ ] Longitudinal cohort queries (research/QI)
-- [ ] Honest section: what TEFCA does NOT solve for AI
+- [x] RAG pipeline diagram: TEFCA → C-CDA/FHIR ingestion → Normalization (USCDI v3) → Vector store → Retrieval → LLM
+- [ ] Agent workflow example: clinical task requiring multi-source queries via TEFCA *(deferred — Doctronic was the only US example and was removed during clinical-reader review for credibility reasons; revisit if a stronger US-specific peer-reviewed example surfaces)*
+- [x] 3-4 concrete use cases across clinical workflows:
+  - [x] Care transitions / med reconciliation
+  - [x] Prior authorization automation
+  - [x] Clinical context for diagnostic AI (incl. longitudinal imaging priors)
+  - [x] Longitudinal cohort queries (research/QI)
+- [x] Honest section: what TEFCA does NOT solve for AI
   - Data quality (C-CDA variability, incomplete USCDI conformance)
   - Semantic normalization
   - Consent-at-scale for AI training/inference

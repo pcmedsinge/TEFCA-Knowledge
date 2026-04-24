@@ -504,6 +504,162 @@
     color: var(--text-muted) !important;
   }
 
+  /* Phase 4: Clinical AI Unlock */
+  .rag-pipeline {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 0;
+    margin: 32px 0 12px;
+  }
+  .pipeline-node {
+    flex: 1 1 140px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    min-width: 0;
+  }
+  .pipeline-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-size: 1.4rem;
+    padding: 0 6px;
+    flex: 0 0 auto;
+    user-select: none;
+  }
+  .pipeline-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    background: var(--accent-bg);
+    border: 1px solid var(--accent-dim);
+    color: var(--accent);
+    border-radius: 50%;
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .pipeline-node h4 {
+    margin: 0 0 6px;
+    font-size: 0.9rem;
+    color: var(--text-strong);
+  }
+  .pipeline-node p {
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .pipeline-source {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: 4px;
+    margin-bottom: 32px;
+  }
+
+  .use-case-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  .use-case-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+  }
+  .use-case-tag {
+    display: inline-block;
+    color: var(--accent);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .use-case-card h4 {
+    margin: 0 0 10px;
+    color: var(--text-strong);
+    font-size: 1.05rem;
+  }
+  .use-case-card p {
+    margin: 0 0 10px;
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+  .use-case-note {
+    font-size: 0.85rem !important;
+    color: var(--text-muted) !important;
+    border-top: 1px dashed var(--border);
+    padding-top: 12px;
+    margin-top: 14px !important;
+  }
+
+  .warning-callout {
+    background: rgba(251, 191, 36, 0.06);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    border-left: 4px solid var(--warning);
+    border-radius: 8px;
+    padding: 28px;
+    margin: 40px 0 32px;
+  }
+  .warning-callout h3 {
+    margin: 0 0 12px;
+    color: var(--warning);
+    font-size: 1.1rem;
+  }
+  .warning-callout p {
+    color: var(--text);
+    margin: 0 0 12px;
+  }
+  .warning-callout p:last-child { margin: 0; }
+  .warning-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 12px;
+  }
+  .warning-list li {
+    padding: 8px 0;
+    border-bottom: 1px dashed rgba(251, 191, 36, 0.25);
+    color: var(--text);
+    font-size: 0.92rem;
+  }
+  .warning-list li:last-child { border-bottom: none; }
+
+  .limitations-list {
+    list-style: none;
+    padding: 0;
+    margin: 24px 0;
+  }
+  .limitations-list li {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 14px;
+  }
+  .limitations-list li:last-child { margin-bottom: 0; }
+  .limitations-list h4 {
+    margin: 0 0 6px;
+    font-size: 1rem;
+    color: var(--text-strong);
+  }
+  .limitations-list p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+
   footer {
     border-top: 1px solid var(--border);
     padding: 48px 0;
@@ -549,6 +705,11 @@
     .step-body h4 { font-size: 0.9rem; }
     .step-body p { font-size: 0.85rem; }
     .honest-callout { padding: 20px; }
+    .rag-pipeline { flex-direction: column; }
+    .pipeline-arrow { transform: rotate(90deg); padding: 8px 0; }
+    .pipeline-node { flex: 1 1 auto; }
+    .warning-callout { padding: 20px; }
+    .limitations-list li { padding: 16px 18px; }
   }
   @media (max-width: 480px) {
     .nav-links { gap: 10px; }
@@ -993,10 +1154,116 @@
   <div class="container">
     <span class="section-eyebrow">04 · The Clinical AI Unlock</span>
     <h2>What TEFCA actually unlocks for Clinical AI — and what it doesn't</h2>
-    <div class="stub-message">
-      <strong>Coming in Phase 4.</strong><br>
-      RAG and Agent workflows in clinical settings, grounded in published evidence (PLOS Digital Health systematic review; Doctronic; Wong et al. on the Epic Sepsis Model). Honest section on what TEFCA does <em>not</em> solve: data quality, semantic normalization, consent-at-scale, patient matching, and the document-to-FHIR transition burden.
+    <p class="section-intro">TEFCA delivers data. Clinical AI consumes data. The pipe matters, but a working pipe doesn't make the model right. This section is about both halves of that sentence — what becomes possible with TEFCA-mediated data ingestion, and where the model still has to earn its keep.</p>
+
+    <h3 class="subsection-heading">The pipeline (RAG over TEFCA data)</h3>
+    <p class="subsection-intro">A typical retrieval-augmented generation pipeline grounded in TEFCA-delivered data. Each step is a real engineering decision, not a slide. <em>If you're a clinician, you can skim or skip the pipeline — the four use cases below are the practical takeaway.</em></p>
+    <div class="rag-pipeline">
+      <div class="pipeline-node">
+        <div class="pipeline-num">1</div>
+        <h4>TEFCA query</h4>
+        <p>XCPD/XCA (document) or Facilitated FHIR (structured) per Phase 3 flows.</p>
+      </div>
+      <div class="pipeline-arrow" aria-hidden="true">→</div>
+      <div class="pipeline-node">
+        <div class="pipeline-num">2</div>
+        <h4>Ingest</h4>
+        <p>C-CDA XML parsing or FHIR Bundle handling. Many teams normalize to FHIR resources at this step (others target OMOP or a proprietary clinical schema).</p>
+      </div>
+      <div class="pipeline-arrow" aria-hidden="true">→</div>
+      <div class="pipeline-node">
+        <div class="pipeline-num">3</div>
+        <h4>Normalize coding</h4>
+        <p>Map to canonical code systems per USCDI v3 data classes (RxNorm, SNOMED CT, LOINC, ICD-10-CM); resolve unit and observation-convention variations; handle missing-data conventions.</p>
+      </div>
+      <div class="pipeline-arrow" aria-hidden="true">→</div>
+      <div class="pipeline-node">
+        <div class="pipeline-num">4</div>
+        <h4>Vector store</h4>
+        <p>Chunk and embed (clinical-domain embedding model). Patient-scoped indices are typical; shared indices with patient-aware retrieval filters are also used.</p>
+      </div>
+      <div class="pipeline-arrow" aria-hidden="true">→</div>
+      <div class="pipeline-node">
+        <div class="pipeline-num">5</div>
+        <h4>Retrieval</h4>
+        <p>Hybrid (semantic + keyword) typically. Filter by date, encounter, source quality. Re-rank for clinical relevance.</p>
+      </div>
+      <div class="pipeline-arrow" aria-hidden="true">→</div>
+      <div class="pipeline-node">
+        <div class="pipeline-num">6</div>
+        <h4>LLM grounding</h4>
+        <p>Retrieved chunks injected into prompt context. Output can cite specific source documents — a deliberate design choice, not automatic. RAG measurably improves accuracy on medical QA tasks.</p>
+      </div>
     </div>
+    <p class="pipeline-source">Source: Amugongo LM, Mascheroni P, Brooks S, Doering S, Seidel J. <em>PLOS Digital Health</em>. <a href="https://journals.plos.org/digitalhealth/article?id=10.1371/journal.pdig.0000877" target="_blank" rel="noopener">2025;4(6):e0000877</a> — systematic review of 70 clinical-RAG studies; GPT-4 medical-QA accuracy improved from ~73% to ~80% with RAG.</p>
+
+    <h3 class="subsection-heading">Four concrete use cases</h3>
+    <p class="subsection-intro">Where TEFCA-grounded AI lands today, ordered from most-mature to most-aspirational.</p>
+    <div class="use-case-grid">
+      <article class="use-case-card">
+        <span class="use-case-tag">Most mature</span>
+        <h4>Care transitions / medication reconciliation</h4>
+        <p>The clinician's true challenge isn't the reconciliation step — it's the history-taking step (Pippins 2008: 72% of harmful medication discrepancies originate there). TEFCA can pull a patient's medication list from QHIN-connected sources where the patient has a record, giving the AI a more complete pre-admission picture than any single EHR holds.</p>
+      </article>
+      <article class="use-case-card">
+        <span class="use-case-tag">High-volume</span>
+        <h4>Prior authorization automation</h4>
+        <p>PA requires assembling clinical justification from records that often live across multiple care settings. TEFCA + RAG can draft a PA packet by pulling the relevant labs, imaging, and prior treatment failures and structuring them against the payer's criteria.</p>
+        <p>The honest part: payer-specific form structures change quarterly, criteria are inconsistent across plans, and denials still trigger peer-to-peer review by a clinician. The AI can shorten the first-pass authoring; it doesn't shorten the appeals fight.</p>
+      </article>
+      <article class="use-case-card">
+        <span class="use-case-tag">Diagnostic context</span>
+        <h4>Longitudinal context for diagnostic AI</h4>
+        <p>Many imaging and pathology AI models benefit from prior studies, prior reports, and trend data — particularly for nodule surveillance, oncology response, and chronic-disease imaging. Magnitude varies by model and modality.</p>
+        <p>Today, getting outside imaging usually means CD/DVD courier or third-party image-sharing networks (LifeImage, Ambra, Nuance PowerShare). TEFCA + <code>DocumentReference</code> + <code>ImagingStudy</code> resources offer a more streamlined path — once Facilitated FHIR adoption catches up to the document-side reality.</p>
+      </article>
+      <article class="use-case-card">
+        <span class="use-case-tag">Research / QI</span>
+        <h4>Longitudinal cohort queries</h4>
+        <p>QI teams need patient cohorts assembled across organizational boundaries. TEFCA's Health Care Operations and Public Health Exchange Purposes can support some of this work — though consent-at-scale and de-identification add real friction (see limitations below).</p>
+        <p>For true research-grade cohort assembly, established networks like PCORnet, OneFlorida+, and ENACT remain the more common route in 2026 — TEFCA isn't designed primarily as a research backbone, and "Research" isn't one of the six Exchange Purposes.</p>
+      </article>
+    </div>
+
+    <div class="warning-callout">
+      <h3>What can go wrong: the Epic Sepsis lesson</h3>
+      <p>The Epic Sepsis Model is a proprietary AI built on rich longitudinal EHR data — exactly the kind of data TEFCA can deliver. At the time of study it was deployed at hundreds of US hospitals.</p>
+      <p>An external validation at Michigan Medicine (Wong et al., <em>JAMA Internal Medicine</em> 2021; n=27,697 adult patients, 38,455 hospitalizations) found the model performed substantially worse than the developer reported:</p>
+      <ul class="warning-list">
+        <li><strong>AUC 0.63</strong> (95% CI: 0.62–0.64) vs Epic's claimed 0.76–0.83</li>
+        <li><strong>Sensitivity 33%</strong>, specificity 83%, PPV 12%, NPV 95%</li>
+        <li><strong>Missed 67% of sepsis cases</strong> (1,709 of 2,552) despite generating alerts</li>
+        <li>Alerts on <strong>18% of all hospitalizations</strong> — substantial alert-fatigue burden</li>
+      </ul>
+      <p><strong>The takeaway for TEFCA + AI:</strong> data delivery is necessary but not sufficient. Local validation, calibration, and ongoing monitoring stay the implementer's responsibility. TEFCA solves <em>data delivery</em>; it does not solve <em>model validity</em>.</p>
+      <p class="callout-source">Source: Wong A, Otles E, Donnelly JP, et al. "External Validation of a Widely Implemented Proprietary Sepsis Prediction Model in Hospitalized Patients." <em>JAMA Internal Medicine</em>. <a href="https://jamanetwork.com/journals/jamainternalmedicine/fullarticle/2781307" target="_blank" rel="noopener">2021;181(8):1065-1070</a>.</p>
+    </div>
+
+    <h3 class="subsection-heading">What TEFCA does NOT solve for AI</h3>
+    <p class="subsection-intro">Honest list. Each of these is the implementer's problem, not TEFCA's.</p>
+    <ul class="limitations-list">
+      <li>
+        <h4>Data quality</h4>
+        <p>C-CDA documents vary substantially in completeness and structure. USCDI v3 conformance is required from January 2026 forward, but legacy data, incomplete sections, and free-text dumps remain common.</p>
+      </li>
+      <li>
+        <h4>Semantic normalization</h4>
+        <p>Different sources use different code systems (NDC vs RxNorm vs free-text), different units (mg/dL vs mmol/L), different observation conventions. TEFCA delivers; you normalize.</p>
+      </li>
+      <li>
+        <h4>Consent-at-scale for AI training and inference</h4>
+        <p>Treatment-purpose data flows fine. Using TEFCA-delivered data to train AI models, or to run inference on de-identified cohorts, runs into HIPAA research provisions, state-level consent laws, and the §164.514 de-identification standard — a thicket the framework does not yet cleanly resolve.</p>
+      </li>
+      <li>
+        <h4>Patient matching is still imperfect</h4>
+        <p>Pew 2018 documented cross-org match rates as low as 50%. Garbage in (wrong patient) means garbage out (wrong AI conclusion). The same gating problem that limits Flow A and Flow B in Phase 3 limits AI too.</p>
+      </li>
+      <li>
+        <h4>Document vs FHIR dual-pipeline burden</h4>
+        <p>Most TEFCA exchange in 2026 is C-CDA. Most clinical AI tooling assumes FHIR resources. Bridging the two means building C-CDA → FHIR mapping infrastructure that has its own loss profile. Until Facilitated FHIR reaches critical mass, dual-pipeline complexity is the implementer's problem.</p>
+      </li>
+    </ul>
+
   </div>
 </section>
 
