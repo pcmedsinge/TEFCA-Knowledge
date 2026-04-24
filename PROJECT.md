@@ -7,10 +7,10 @@
 ---
 
 ## Status
-- **Current Phase:** 1 of 5 — code complete on `phase-1-foundation`, awaiting merge to `main` + `v0.1` tag for DoD
-- **Last Completed:** Phase 1 — `index.html` with Hero + Problem Wall (5 sourced scenarios from Pew, Lammers, Pippins, Frandsen, plus the C-CDA reality scenario) + 4 stub sections + sticky nav + dark professional theme + responsive foundation. Visually verified in browser.
-- **Next Up:** Either (a) merge `phase-1-foundation` → `main` and tag `v0.1`, then start Phase 2 (TEFCA Ecosystem map); or (b) close the 3 deferred Phase 0 items (IHE profiles in QTF v2.1, FHIR R4 resource types per query flow, consent granularity §7.2) before Phase 2
-- **Version:** v0.1 (pending — to be tagged at merge)
+- **Current Phase:** 2 of 5 — code complete on `phase-2-ecosystem`, awaiting merge to `main` + `v0.2` tag for DoD
+- **Last Completed:** Phase 2 — TEFCA Ecosystem section: 7-layer interactive cake (ONC → RCE → Docs → 11 QHINs → Participants → Subparticipants → Endpoints), clickable layers + QHIN nodes with detail panel, Common Agreement v2.1 trio of governing-doc cards, all 6 Exchange Purposes with Government Benefits Determination highlighted as new. UX iteration: stronger active-state contrast + scroll-into-view + citation hyperlinks + QHIN acronym expanded per user feedback.
+- **Next Up:** Either (a) merge `phase-2-ecosystem` → `main` and tag `v0.2`, then start Phase 3 (Query Flows — the project's "uncomfortable truth about TEFCA" launch moment per LinkedIn timing decision); or (b) close the 3 deferred Phase 0 items (IHE profiles in QTF v2.1, FHIR R4 resource types per query flow, consent granularity §7.2) before Phase 3
+- **Version:** v0.1 shipped; v0.2 pending
 
 ---
 
@@ -120,12 +120,12 @@ Shell + theme + navigation + the first real content section (Problem Wall). Firs
 ### Phase 2 — TEFCA Ecosystem Map
 **Est. time:** 4-5 hours
 Interactive diagram. ONC → RCE (Sequoia Project) → QHINs → Participants → Subparticipants. Clickable nodes with detail panels. Common Agreement v2.1 as legal spine. All 11 Designated QHINs represented accurately.
-- [ ] SVG/JS interactive diagram
-- [ ] Clickable nodes open detail panel (role, responsibilities, real examples)
-- [ ] Real QHIN list (all 11, from `CONTENT.md`)
-- [ ] Common Agreement v2.1 explainer
-- [ ] All six Exchange Purposes documented (Treatment, Payment, Health Care Operations, Public Health, IAS, Government Benefits Determination)
-- [ ] Distinction between Designated vs Candidate QHINs shown
+- [x] SVG/JS interactive diagram
+- [x] Clickable nodes open detail panel (role, responsibilities, real examples)
+- [x] Real QHIN list (all 11, from `CONTENT.md`)
+- [x] Common Agreement v2.1 explainer
+- [x] All six Exchange Purposes documented (Treatment, Payment, Health Care Operations, Public Health, IAS, Government Benefits Determination)
+- [x] Distinction between Designated vs Candidate QHINs shown
 
 **Definition of Done:** Interactive diagram passes DoD, every claim traceable to `CONTENT.md`.
 

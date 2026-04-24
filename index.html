@@ -202,6 +202,187 @@
   }
   .stub-message strong { color: var(--text); }
 
+  /* Phase 2: Ecosystem layer cake */
+  .layer-cake {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    margin: 40px 0 24px;
+  }
+  .layer {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    font-family: inherit;
+    color: var(--text-strong);
+    transition: background 0.15s, border-color 0.15s;
+    width: 100%;
+  }
+  .layer:hover {
+    background: var(--surface-2);
+    border-color: var(--accent-dim);
+  }
+  .layer.active {
+    background: rgba(78, 201, 176, 0.18);
+    border-color: var(--accent);
+    border-left-width: 4px;
+    padding-left: 21px;
+  }
+  .layer:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .layer-label {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-strong);
+  }
+  .layer-sub {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+  .layer-arrow {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    padding: 6px 0;
+    user-select: none;
+  }
+  .qhin-strip {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+    width: 100%;
+  }
+  .qhin-node {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    color: var(--text);
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+  .qhin-node:hover {
+    background: var(--accent-bg);
+    border-color: var(--accent-dim);
+    color: var(--text-strong);
+  }
+  .qhin-node.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg);
+  }
+  .qhin-node:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .detail-panel {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px 28px;
+    min-height: 120px;
+    margin-bottom: 48px;
+  }
+  .detail-panel h4 {
+    margin: 0 0 12px;
+    color: var(--accent);
+    font-size: 1.1rem;
+  }
+  .detail-panel p { margin: 0 0 10px; }
+  .detail-panel .detail-hint {
+    color: var(--text-muted);
+    font-style: italic;
+    margin: 0;
+    text-align: center;
+    padding: 12px 0;
+  }
+  .detail-panel .detail-meta {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+  .detail-panel .detail-source {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: 12px;
+  }
+  .detail-panel .detail-source a { color: var(--text-muted); }
+  .detail-panel .detail-source a:hover { color: var(--accent); }
+
+  .subsection-heading {
+    margin-top: 64px;
+    font-size: 1.4rem;
+    color: var(--text-strong);
+  }
+  .subsection-intro {
+    color: var(--text-muted);
+    margin-bottom: 28px;
+  }
+  .docs-grid, .xp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  .doc-card, .xp-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    position: relative;
+  }
+  .doc-card h4, .xp-card h4 {
+    margin: 0 0 8px;
+    color: var(--text-strong);
+    font-size: 1.05rem;
+  }
+  .doc-card p, .xp-card p {
+    font-size: 0.9rem;
+    color: var(--text);
+    margin: 0 0 8px;
+  }
+  .doc-version {
+    display: inline-block;
+    color: var(--accent);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .xp-meta {
+    color: var(--text-muted) !important;
+    font-size: 0.8rem !important;
+    margin-top: 8px !important;
+    font-style: italic;
+  }
+  .xp-new { border-color: var(--accent-dim); }
+  .badge-new {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 3px;
+    letter-spacing: 0.06em;
+  }
+
   footer {
     border-top: 1px solid var(--border);
     padding: 48px 0;
@@ -231,6 +412,14 @@
     .scenario-number { font-size: 1.1rem; margin-bottom: -4px; }
     .stat-number { font-size: 1.7rem; }
     .hero .quick-jump { font-size: 0.85rem; }
+    .layer { padding: 14px 16px; }
+    .layer-label { font-size: 0.95rem; }
+    .layer-sub { font-size: 0.78rem; }
+    .qhin-node { font-size: 0.75rem; padding: 5px 8px; }
+    .detail-panel { padding: 18px 20px; }
+    .docs-grid, .xp-grid { grid-template-columns: 1fr; gap: 16px; }
+    .doc-card, .xp-card { padding: 20px; }
+    .subsection-heading { margin-top: 48px; font-size: 1.2rem; }
   }
   @media (max-width: 480px) {
     .nav-links { gap: 10px; }
@@ -298,7 +487,7 @@
             <div class="stat-label">of ED CT scans are repeats — same study, same body region, within 30 days at unaffiliated EDs (CA + FL, 2007–2010)</div>
             <div class="stat-effect">HIE participation cut that by <strong>59%</strong> for CT, <strong>44%</strong> for ultrasound, <strong>67%</strong> for chest x-ray.</div>
           </div>
-          <p class="citation">Lammers EJ, Adler-Milstein J, Kocher KE. <em>Medical Care</em>. 2014;52(3):227-34.</p>
+          <p class="citation">Lammers EJ, Adler-Milstein J, Kocher KE. <em>Medical Care</em>. <a href="https://pubmed.ncbi.nlm.nih.gov/24374414/" target="_blank" rel="noopener">2014;52(3):227-34</a>.</p>
         </div>
       </article>
 
@@ -312,7 +501,7 @@
             <div class="stat-label">of admitted patients have at least one potentially harmful medication discrepancy during their stay</div>
             <div class="stat-effect"><strong>75%</strong> of those discrepancies happen at discharge. <strong>72%</strong> are rooted in errors taking the medication history — not in the reconciliation step itself.</div>
           </div>
-          <p class="citation">Pippins JR, Gandhi TK, Hamann C, et al. <em>Journal of General Internal Medicine</em>. 2008;23(9):1414-1422.</p>
+          <p class="citation">Pippins JR, Gandhi TK, Hamann C, et al. <em>Journal of General Internal Medicine</em>. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2518028/" target="_blank" rel="noopener">2008;23(9):1414-1422</a>.</p>
         </div>
       </article>
 
@@ -326,7 +515,7 @@
             <div class="stat-label">match rates between organizations can drop this low — even between organizations using the same EHR vendor</div>
             <div class="stat-effect">Within a single facility, duplicate-record rates average <strong>18%</strong>. <strong>1 in 5</strong> hospital CIOs report patient harm from mismatches in the prior year.</div>
           </div>
-          <p class="citation">Pew Charitable Trusts. <em>Enhanced Patient Matching Is Critical to Achieving Full Promise of Digital Health Records</em>. October 2018.</p>
+          <p class="citation">Pew Charitable Trusts. <a href="https://www.pew.org/en/research-and-analysis/reports/2018/10/02/enhanced-patient-matching-critical-to-achieving-full-promise-of-digital-health-records" target="_blank" rel="noopener"><em>Enhanced Patient Matching Is Critical to Achieving Full Promise of Digital Health Records</em></a>. October 2018.</p>
         </div>
       </article>
 
@@ -340,7 +529,7 @@
             <div class="stat-label">higher annual healthcare spending per chronically ill patient with highly fragmented PCP-referral patterns vs least-fragmented (US commercial claims, n=506,376)</div>
             <div class="stat-effect">Highly fragmented care: <strong>32.8% vs 25.9%</strong> departures from clinical best practice and <strong>9.1% vs 7.1%</strong> preventable hospitalization rate.</div>
           </div>
-          <p class="citation">Frandsen BR, Joynt KE, Rebitzer JB, Jha AK. <em>American Journal of Managed Care</em>. 2015;21(5):355-62.</p>
+          <p class="citation">Frandsen BR, Joynt KE, Rebitzer JB, Jha AK. <em>American Journal of Managed Care</em>. <a href="https://pubmed.ncbi.nlm.nih.gov/26167702/" target="_blank" rel="noopener">2015;21(5):355-62</a>.</p>
         </div>
       </article>
 
@@ -354,7 +543,7 @@
             <div class="stat-label">— and TEFCA exchange is still primarily document-based (C-CDA over IHE XCA/XCPD), not native FHIR</div>
             <div class="stat-effect">Facilitated FHIR SOP v2.0 (draft, March 2026) is the migration path; UDAP support extends through 2027. Until critical mass arrives, dual-pipeline reality and lossy round-trips between document and structured data.</div>
           </div>
-          <p class="citation">2026 ASTP Annual Meeting recap; Facilitated FHIR Implementation SOP v2.0 (draft).</p>
+          <p class="citation"><a href="https://dynamichealthit.com/post/2026-astp-annual-meeting/" target="_blank" rel="noopener">2026 ASTP Annual Meeting recap</a>; <a href="https://rce.sequoiaproject.org/wp-content/uploads/2026/02/SOP-Facilitated-FHIR-Implementation-2.0-Draft-508.pdf" target="_blank" rel="noopener">Facilitated FHIR Implementation SOP v2.0 (draft)</a>.</p>
         </div>
       </article>
 
@@ -366,10 +555,132 @@
   <div class="container">
     <span class="section-eyebrow">02 · The TEFCA Ecosystem</span>
     <h2>Eleven QHINs, one Common Agreement, and the layer cake underneath</h2>
-    <div class="stub-message">
-      <strong>Coming in Phase 2.</strong><br>
-      Interactive ecosystem map: ONC → RCE (Sequoia Project) → 11 Designated QHINs → Participants → Subparticipants. Common Agreement v2.1 as the legal spine; six Exchange Purposes as the use-case axes (Treatment, Payment, Health Care Operations, Public Health, Individual Access Services, Government Benefits Determination).
+    <p class="section-intro">TEFCA isn't one thing. It's a layered governance and exchange model: ONC sets the rules, the RCE operates the network, governing documents define the contracts, eleven Designated Qualified Health Information Networks (QHINs) serve as the hubs, and tiered Participants reach down to the actual endpoints — clinicians, patients, public health, and government benefits programs.</p>
+
+    <div class="layer-cake" role="group" aria-label="TEFCA layer cake — click any layer for details">
+
+      <div class="layer" role="button" tabindex="0" data-layer="onc">
+        <span class="layer-label">ONC</span>
+        <span class="layer-sub">Federal oversight (HHS)</span>
+      </div>
+
+      <div class="layer-arrow" aria-hidden="true">↓</div>
+
+      <div class="layer" role="button" tabindex="0" data-layer="rce">
+        <span class="layer-label">RCE — The Sequoia Project</span>
+        <span class="layer-sub">Network operator under ONC contract</span>
+      </div>
+
+      <div class="layer-arrow" aria-hidden="true">↓</div>
+
+      <div class="layer" role="button" tabindex="0" data-layer="docs">
+        <span class="layer-label">Common Agreement v2.1 + QTF v2.1</span>
+        <span class="layer-sub">Governing documents — the legal spine</span>
+      </div>
+
+      <div class="layer-arrow" aria-hidden="true">↓</div>
+
+      <div class="layer layer-qhins" role="button" tabindex="0" data-layer="qhins">
+        <span class="layer-label">11 Designated QHINs</span>
+        <span class="layer-sub">Click any QHIN below for designation date · listed in chronological order</span>
+        <div class="qhin-strip" role="group" aria-label="Designated QHINs">
+          <button type="button" class="qhin-node" data-qhin="ehealth-exchange">eHealth Exchange</button>
+          <button type="button" class="qhin-node" data-qhin="epic-nexus">Epic Nexus</button>
+          <button type="button" class="qhin-node" data-qhin="health-gorilla">Health Gorilla</button>
+          <button type="button" class="qhin-node" data-qhin="konza">KONZA</button>
+          <button type="button" class="qhin-node" data-qhin="medallies">MedAllies</button>
+          <button type="button" class="qhin-node" data-qhin="commonwell">CommonWell</button>
+          <button type="button" class="qhin-node" data-qhin="kno2">Kno2</button>
+          <button type="button" class="qhin-node" data-qhin="eclinicalworks">eClinicalWorks</button>
+          <button type="button" class="qhin-node" data-qhin="surescripts">Surescripts</button>
+          <button type="button" class="qhin-node" data-qhin="netsmart">Netsmart</button>
+          <button type="button" class="qhin-node" data-qhin="oracle">Oracle Health</button>
+        </div>
+      </div>
+
+      <div class="layer-arrow" aria-hidden="true">↓</div>
+
+      <div class="layer" role="button" tabindex="0" data-layer="participants">
+        <span class="layer-label">Participants</span>
+        <span class="layer-sub">Tier 2 — health systems, EHR vendor networks, HIEs</span>
+      </div>
+
+      <div class="layer-arrow" aria-hidden="true">↓</div>
+
+      <div class="layer" role="button" tabindex="0" data-layer="subparticipants">
+        <span class="layer-label">Subparticipants</span>
+        <span class="layer-sub">Tier 3 — small practices, clinics connecting through Participants</span>
+      </div>
+
+      <div class="layer-arrow" aria-hidden="true">↓</div>
+
+      <div class="layer" role="button" tabindex="0" data-layer="endpoints">
+        <span class="layer-label">Endpoints</span>
+        <span class="layer-sub">Clinicians · patients (via IAS) · public health · government benefits</span>
+      </div>
+
     </div>
+
+    <div class="detail-panel" id="ecosystem-detail" aria-live="polite">
+      <p class="detail-hint">Click any layer or QHIN above to see details.</p>
+    </div>
+
+    <h3 class="subsection-heading">The governing documents</h3>
+    <p class="subsection-intro">The trio every QHIN, Participant, and Subparticipant signs onto.</p>
+    <div class="docs-grid">
+      <article class="doc-card">
+        <span class="doc-version">v2.1 · Nov 2024</span>
+        <h4>Common Agreement</h4>
+        <p>The master contract. Every QHIN, Participant, and Subparticipant signs onto its current version. v2.0 was published in the Federal Register May 2024; v2.1 superseded it in November 2024.</p>
+        <p class="citation">Source: <a href="https://rce.sequoiaproject.org/tefca/" target="_blank" rel="noopener">rce.sequoiaproject.org/tefca</a></p>
+      </article>
+      <article class="doc-card">
+        <span class="doc-version">v2.1 · current</span>
+        <h4>QHIN Technical Framework (QTF)</h4>
+        <p>The technical specification QHINs implement. Defines the exchange protocols, security requirements, and interoperability profiles. Cross-referenced in the January 2026 TEFCA Glossary.</p>
+        <p class="citation">Source: <a href="https://rce.sequoiaproject.org/wp-content/uploads/2026/01/TEFCA-Glossary_Jan-2026-v2_508.pdf" target="_blank" rel="noopener">TEFCA Glossary (Jan 2026)</a></p>
+      </article>
+      <article class="doc-card">
+        <span class="doc-version">v1.0</span>
+        <h4>Participant / Subparticipant Terms of Participation</h4>
+        <p>Standardized terms for Tier 2 (Participant) and Tier 3 (Subparticipant) onboarding. Signed between the QHIN and downstream organizations.</p>
+        <p class="citation">Source: TEFCA Glossary (Jan 2026)</p>
+      </article>
+    </div>
+
+    <h3 class="subsection-heading">The six Exchange Purposes</h3>
+    <p class="subsection-intro">Every TEFCA query happens for one of these reasons. Government Benefits Determination is the newest — added in 2025 to support SSA disability determinations.</p>
+    <div class="xp-grid">
+      <article class="xp-card">
+        <h4>Treatment</h4>
+        <p>The most common purpose — providers exchanging data for direct patient care. 45 CFR § 164.501 definition.</p>
+        <p class="xp-meta">XP Implementation SOP: Treatment v1.2 (1/16/2026)</p>
+      </article>
+      <article class="xp-card">
+        <h4>Payment</h4>
+        <p>Payers and providers exchanging data for billing, eligibility, and claims processing.</p>
+      </article>
+      <article class="xp-card">
+        <h4>Health Care Operations</h4>
+        <p>Quality measurement, care coordination, credentialing, audits — the operational backbone of health care delivery.</p>
+      </article>
+      <article class="xp-card">
+        <h4>Public Health</h4>
+        <p>Mandated and voluntary reporting to public health authorities — surveillance, registries, disease tracking.</p>
+      </article>
+      <article class="xp-card">
+        <h4>Individual Access Services (IAS)</h4>
+        <p>Helping individuals access their own records — patient-facing apps, portable health records.</p>
+        <p class="xp-meta">IAS Provider Requirements SOP v2.1 (3/17/2026)</p>
+      </article>
+      <article class="xp-card xp-new">
+        <span class="badge-new">NEW</span>
+        <h4>Government Benefits Determination</h4>
+        <p>Supports SSA disability determinations (SSDI Title II, SSI Title XVI). The goal: replace weeks-or-months of record retrieval with minutes-or-seconds.</p>
+        <p class="xp-meta">XP Implementation SOP: Government Benefits Determination v1.0 (released 2025)</p>
+      </article>
+    </div>
+
   </div>
 </section>
 
@@ -446,6 +757,129 @@
     });
 
     sections.forEach(s => observer.observe(s));
+  })();
+
+  // Phase 2: Ecosystem layer cake interactivity
+  (function() {
+    const detailPanel = document.getElementById('ecosystem-detail');
+    if (!detailPanel) return;
+
+    const layerData = {
+      onc: {
+        title: 'ONC — Office of the National Coordinator for Health IT',
+        role: 'Federal oversight body for health IT and TEFCA. Sets policy, designates the RCE, and holds the regulatory authority that makes TEFCA enforceable.',
+        meta: 'On March 31, 2026, HHS reinstated ONC and dropped the "ASTP/ONC" dual title that had been in place since July 2024. The National Coordinator role was un-merged from the Assistant Secretary for Technology Policy role.',
+        source: { url: 'https://healthit.gov/policy/tefca/', label: 'healthit.gov/policy/tefca' }
+      },
+      rce: {
+        title: 'Recognized Coordinating Entity — The Sequoia Project',
+        role: 'Operates TEFCA day-to-day under contract with ONC. Designates QHINs, manages the RCE Directory, publishes SOPs, and convenes the TEFCA community.',
+        meta: 'The Sequoia Project was reselected as RCE in August 2025 to continue its role. The original 5-year contract was awarded August 2023.',
+        source: { url: 'https://rce.sequoiaproject.org/', label: 'rce.sequoiaproject.org' }
+      },
+      docs: {
+        title: 'Governing documents — the legal and technical spine',
+        role: 'Three documents govern every TEFCA exchange: the Common Agreement (master contract), the QHIN Technical Framework (technical spec), and the Participant/Subparticipant Terms of Participation (downstream onboarding).',
+        meta: 'See the cards below for current versions of each.'
+      },
+      qhins: {
+        title: '11 Designated QHINs',
+        role: 'The hubs of TEFCA. Every Participant connects through a QHIN; every QHIN is connected to every other QHIN. Click any specific QHIN above for its designation date and role.',
+        meta: 'Designations rolled out across three years: 5 at the December 2023 "Big Bang" launch, 2 in February 2024, and 4 more in 2025 (eClinicalWorks January, Surescripts April, Netsmart August, Oracle November). Beyond the designated 11, additional organizations are in active onboarding as Candidate QHINs — list maintained by the RCE.',
+        source: { url: 'https://rce.sequoiaproject.org/candidate-qhins/', label: 'RCE Candidate QHINs page' }
+      },
+      participants: {
+        title: 'Participants (Tier 2)',
+        role: 'Organizations that connect directly through a QHIN — typically large health systems, EHR vendor networks, and HIEs. They sign the Participant/Subparticipant Terms of Participation with their QHIN of choice.',
+        meta: 'Examples include large multi-state health systems, regional HIEs, and federal networks such as the Veterans Health Administration via eHealth Exchange.'
+      },
+      subparticipants: {
+        title: 'Subparticipants (Tier 3)',
+        role: 'Organizations that connect through a Participant rather than directly to a QHIN. Same Terms of Participation, but downstream — typically smaller practices, individual clinics, post-acute facilities.',
+        meta: 'The Tier 2 / Tier 3 distinction matters for liability, data flow, and contractual relationships — even though to an end clinician, the data path may look the same.'
+      },
+      endpoints: {
+        title: 'Endpoints — the actual users and systems',
+        role: 'The clinicians, patients, public health authorities, and government benefits programs that ultimately consume TEFCA data. This is where the network meets the workflow.',
+        meta: 'As of 2026-04-23: 21,086 organizations live on TEFCA, representing 81,000+ unique connections, with 889 million documents shared since the December 2023 go-live.',
+        source: { url: 'https://rce.sequoiaproject.org/', label: 'RCE homepage (verified 2026-04-23)' }
+      }
+    };
+
+    const qhinData = {
+      'ehealth-exchange': { name: 'eHealth Exchange', date: 'Designated December 2023', note: 'One of the original 5 QHINs at the TEFCA "Big Bang" launch on December 12, 2023. Long-standing federal-network operator.' },
+      'epic-nexus': { name: 'Epic Nexus', date: 'Designated December 2023', note: 'One of the original 5 launch QHINs. Connects health systems running on the Epic platform.' },
+      'health-gorilla': { name: 'Health Gorilla', date: 'Designated December 2023', note: 'One of the original 5 launch QHINs. Health data API platform.' },
+      'konza': { name: 'KONZA (Konza Health)', date: 'Designated December 2023', note: 'One of the original 5 launch QHINs. Regional HIE backbone.' },
+      'medallies': { name: 'MedAllies', date: 'Designated December 2023', note: 'One of the original 5 launch QHINs. Direct messaging and care-coordination network.' },
+      'commonwell': { name: 'CommonWell Health Alliance', date: 'Designated February 2024', note: '6th designated QHIN. Multi-vendor EHR alliance originally founded in 2013.' },
+      'kno2': { name: 'Kno2', date: 'Designated February 2024', note: '7th designated QHIN. Direct messaging and document-delivery network.' },
+      'eclinicalworks': { name: 'eClinicalWorks (Prismanet)', date: 'Designated January 16, 2025', note: '8th designated QHIN — first new designation of 2025.' },
+      'surescripts': { name: 'Surescripts', date: 'Designated April 2025', note: '9th designated QHIN. Best known for e-prescribing; this designation extends them into broader TEFCA exchange.' },
+      'netsmart': { name: 'Netsmart', date: 'Designated August 6, 2025', note: '10th designated QHIN. Behavioral-health and post-acute / long-term-care focus.' },
+      'oracle': { name: 'Oracle Health Information Network', date: 'Designated November 2025', note: '11th designated QHIN; 4th and final added in 2025. Built on the Cerner / Oracle Health platform.' }
+    };
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, function(c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+
+    function renderDetail(data) {
+      let html = '<h4>' + escapeHtml(data.title) + '</h4>';
+      if (data.role) html += '<p>' + escapeHtml(data.role) + '</p>';
+      if (data.meta) html += '<p class="detail-meta">' + escapeHtml(data.meta) + '</p>';
+      if (data.source) {
+        html += '<p class="detail-source">Source: <a href="' + encodeURI(data.source.url) + '" target="_blank" rel="noopener">' + escapeHtml(data.source.label) + '</a></p>';
+      }
+      detailPanel.innerHTML = html;
+    }
+
+    function clearActive() {
+      document.querySelectorAll('.layer.active, .qhin-node.active').forEach(el => el.classList.remove('active'));
+    }
+
+    function activateLayer(el) {
+      const key = el.getAttribute('data-layer');
+      const data = layerData[key];
+      if (!data) return;
+      clearActive();
+      el.classList.add('active');
+      renderDetail(data);
+      detailPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    document.querySelectorAll('.layer[data-layer]').forEach(layer => {
+      layer.addEventListener('click', function(e) {
+        if (e.target.closest('.qhin-node')) return;
+        activateLayer(this);
+      });
+      layer.addEventListener('keydown', function(e) {
+        if (e.target !== this) return;
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          activateLayer(this);
+        }
+      });
+    });
+
+    document.querySelectorAll('.qhin-node[data-qhin]').forEach(node => {
+      node.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const key = this.getAttribute('data-qhin');
+        const data = qhinData[key];
+        if (!data) return;
+        clearActive();
+        this.classList.add('active');
+        renderDetail({
+          title: data.name,
+          role: data.date,
+          meta: data.note
+        });
+        detailPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
   })();
 </script>
 
