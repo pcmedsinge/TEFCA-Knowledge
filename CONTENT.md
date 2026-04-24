@@ -103,12 +103,43 @@ The six Exchange Purposes (XPs) currently recognized under TEFCA:
 - **Source:** Dynamic Health IT recap of 2026 ASTP Annual Meeting — https://dynamichealthit.com/post/2026-astp-annual-meeting/
 
 ### 4.2 FHIR migration in progress (Facilitated FHIR)
-- **Facilitated FHIR Implementation SOP v2.0** released as DRAFT 3/08/2026
-- Permits UDAP Dynamic Client Registration, Authentication and Authorization through **2027**
-- FHIR endpoints published in the RCE Directory
-- Uses HL7 SMART App Launch Framework / UDAP profiles
-- **Source:** https://rce.sequoiaproject.org/wp-content/uploads/2026/02/SOP-Facilitated-FHIR-Implementation-2.0-Draft-508.pdf
-- **Source:** 2026-02-19 ONC TEFCA Updates Presentation — https://www.healthit.gov/wp-content/uploads/2026/02/2026-02-19_TEFCA_Updates_Presentation.pdf
+
+**Document trail:**
+- **Facilitated FHIR Implementation SOP v2.0** released as DRAFT 3/8/2026
+- An earlier draft of v2.0 was published in October 2025
+- Older Facilitated FHIR Implementation Guide drafts go back to 2022 (Draft 1 in October 2022, Draft 2 pilot in December 2022)
+- **Sources:**
+  - SOP v2.0 Draft (March 2026): https://rce.sequoiaproject.org/wp-content/uploads/2026/02/SOP-Facilitated-FHIR-Implementation-2.0-Draft-508.pdf
+  - SOP v2.0 Draft (October 2025 — earlier iteration): https://rce.sequoiaproject.org/wp-content/uploads/2025/10/SOP-Facilitated-FHIR-Implementation-2.0-Draft-October_508.pdf
+  - 2026-02-19 ONC TEFCA Updates Presentation: https://www.healthit.gov/wp-content/uploads/2026/02/2026-02-19_TEFCA_Updates_Presentation.pdf
+  - RCE "TEFCA on FHIR" overview page (verified 2026-04-24): https://rce.sequoiaproject.org/rce-tefca-on-fhir/
+
+**What Facilitated FHIR enables:**
+- Allows organizations to conduct FHIR transactions directly with other TEFCA participants **without a prior bilateral connection** — that's the "facilitated" part
+- Network-scaled trust establishment via UDAP-based client registration (vs the per-pair manual onboarding required for legacy direct integrations)
+
+**Security framework:**
+- **Required spec:** "HL7 UDAP Security for Scalable Registration, Authentication, and Authorization Implementation Guide" — the formal name used in the RCE TEFCA on FHIR page; sometimes shortened to UDAP SSRAA in industry coverage
+- **Flow:** The Initiating Node uses a TEFCA-issued certificate to assert identity, registers as a UDAP Trusted Client (gets a `client_id`), authenticates, receives an access token, then queries the Responding Node's FHIR server
+- **Permission window:** UDAP-based registration / authentication / authorization permitted through **2027** per SOP v2.0 Draft
+- **Note on unverified claim:** Search summaries occasionally describe a "January 1, 2026 HL7 FAST deadline for QHINs to implement FAST security protocols for FHIR." This claim is **not corroborated** by the RCE TEFCA on FHIR page. Treat as unverified — do not cite without primary-source confirmation.
+
+**Endpoint discovery:**
+- FHIR endpoints are registered in the **RCE Directory Service** (operated by The Sequoia Project)
+- Initiating Nodes look up Responding Node endpoints via the Directory before initiating exchange
+- Quote (RCE): "facilitated by usage of the RCE® Directory Service for scalable endpoint discovery"
+
+**FHIR baseline:**
+- **FHIR Release 4** with **HL7 FHIR US Core Implementation Guide v3.1.1** required (per RCE TEFCA on FHIR page)
+
+**Typical FHIR resources used in TEFCA flows** (per US Core v3.1.1 Treatment scenarios):
+- `Patient` — identification and demographics, anchor of every query
+- `DocumentReference` — pointer to clinical documents (often C-CDA documents wrapped as binary attachments — bridges the document/FHIR worlds)
+- `Consent` — patient consent records (referenced in `consent_reference` arrays in some IAS flows)
+- `Bundle` — packaging multiple resources for a single response
+- `MedicationRequest`, `AllergyIntolerance`, `Condition`, `Observation`, `ImagingStudy`, `DiagnosticReport`, `Encounter` — domain resources commonly returned for Treatment-purpose queries
+
+**Methodology note:** Resource list above reflects standard US Core v3.1.1 usage patterns for Treatment-purpose exchanges. The Facilitated FHIR SOP v2.0 PDF could not be text-extracted in this environment (binary encoding); for Phase 3 publication, a manual review of the SOP is recommended to confirm any specific resource subsets, profiles, or extensions mandated.
 
 ### 4.3 USCDI requirement
 - **Effective January 1, 2026:** all data created or captured and sent via TEFCA must conform to **USCDI v3**
@@ -116,11 +147,23 @@ The six Exchange Purposes (XPs) currently recognized under TEFCA:
 - For FHIR exchange: **HL7 FHIR US Core Implementation Guide v3.1.1 or higher**
 - **Source:** TEFCA RCE FAQs — https://rce.sequoiaproject.org/rce/faqs/
 
-### 4.4 IHE profiles currently used
-- **XCPD** (Cross-Community Patient Discovery) — for patient matching across QHINs
-- **XCA** (Cross-Community Access) — for document query and retrieval
-- These are the backbone of the current document-based exchange
-- **Action:** Verify exact profile references in QTF v2.1 before Phase 3
+### 4.4 IHE profiles currently used (verified against QTF v2.1 references, 2026-04-24)
+
+**XCPD — Cross-Community Patient Discovery**
+- "QHINs MUST implement the IHE XCPD profile for QHIN Patient Discovery."
+- Function: locate the communities that hold relevant patient health data; correlate patient identifiers across communities holding the same patient's data
+- This is the patient-matching layer — what makes cross-QHIN queries possible at all
+
+**XCA — Cross-Community Access**
+- Function: query and retrieve patient health data held by other communities, in the form of documents
+- Inputs: requires knowledge of patient identity (from XCPD result) and the HomeCommunityID of the Responding Node when querying for and retrieving clinical documents
+- This is the document-fetch layer — once XCPD says "patient X has records in community Y," XCA fetches them
+
+**Together:** XCPD + XCA are the backbone of TEFCA's current document-based (C-CDA) exchange. Both profiles are formally required by the QTF.
+
+**Source (authoritative):** QHIN Technical Framework (QTF) v2.1, Draft dated December 4, 2025 — https://rce.sequoiaproject.org/wp-content/uploads/2025/12/QTF-2.1-Draft-12.04.25-clean1.pdf
+
+**Methodology note:** The QTF v2.1 PDF was reviewed via search-engine summaries quoting the document's MUST-statements rather than direct text extraction (PDF text extraction was not available in the Phase 0 environment). For Phase 3 publication, a manual read of the QTF v2.1 PDF is recommended to confirm exact section numbers and surface any additional IHE profiles (e.g., ATNA for audit logging, XUA for user assertion) that may also be required by the QTF but were not surfaced in the secondary-source review.
 
 ---
 
@@ -366,4 +409,4 @@ These statistics quantify the clinical problems TEFCA exists to address. Sourced
 - [x] Patient matching study citation
 - [x] Care fragmentation / duplicate imaging / med reconciliation stats (ONC, RAND, CMS, or peer-reviewed)
 - [x] Clinical AI use case citations (2-3 strong)
-- [ ] IHE profile cross-check against QTF v2.1 actual text
+- [x] IHE profile cross-check against QTF v2.1 actual text

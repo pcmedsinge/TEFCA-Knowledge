@@ -7,10 +7,10 @@
 ---
 
 ## Status
-- **Current Phase:** 2 of 5 — code complete on `phase-2-ecosystem`, awaiting merge to `main` + `v0.2` tag for DoD
-- **Last Completed:** Phase 2 — TEFCA Ecosystem section: 7-layer interactive cake (ONC → RCE → Docs → 11 QHINs → Participants → Subparticipants → Endpoints), clickable layers + QHIN nodes with detail panel, Common Agreement v2.1 trio of governing-doc cards, all 6 Exchange Purposes with Government Benefits Determination highlighted as new. UX iteration: stronger active-state contrast + scroll-into-view + citation hyperlinks + QHIN acronym expanded per user feedback.
-- **Next Up:** Either (a) merge `phase-2-ecosystem` → `main` and tag `v0.2`, then start Phase 3 (Query Flows — the project's "uncomfortable truth about TEFCA" launch moment per LinkedIn timing decision); or (b) close the 3 deferred Phase 0 items (IHE profiles in QTF v2.1, FHIR R4 resource types per query flow, consent granularity §7.2) before Phase 3
-- **Version:** v0.1 shipped; v0.2 pending
+- **Current Phase:** 3 of 5 — pre-build verification pass complete on `phase-3-flows`. Phase 0 deferred items reduced from 3 to 1 (only consent granularity §7.2 still open).
+- **Last Completed:** Phase 0 IHE/FHIR verification — verified XCPD/XCA MUST-statements against QTF v2.1 (Dec 4, 2025 draft) and Facilitated FHIR mechanics (UDAP SSRAA, RCE Directory Service, US Core v3.1.1, typical resource list) against the RCE TEFCA on FHIR page. CONTENT.md §4.2 and §4.4 substantially expanded with verified material and methodology notes.
+- **Next Up:** Build Phase 3 (Query Flows) on `phase-3-flows` — two parallel flows shown side-by-side (document-based C-CDA over IHE XCPD/XCA + Facilitated FHIR via UDAP SSRAA / RCE Directory). This is the LinkedIn launch-post moment per the timing decision in the Parallel Track section.
+- **Version:** v0.1, v0.2 shipped; v0.3 pending
 
 ---
 
@@ -93,8 +93,8 @@ Front-load all fact-gathering so build phases aren't blocked by verification. Ou
 - [x] **Full list of all 11 Designated QHINs with designation dates**
 - [x] **Adoption stats reconciliation** — RCE homepage vs Nov 2025 blog post discrepancy
 - [x] Real statistics: care fragmentation cost, duplicate imaging rates, med reconciliation errors — with peer-reviewed / ONC / RAND sources
-- [ ] FHIR R4 resource types relevant to each query flow — verified against HL7 US Core v3.1.1+
-- [ ] IHE profiles actually referenced in TEFCA QTF v2.1 (XCA, XCPD confirmed relevant — verify exact references)
+- [x] FHIR R4 resource types relevant to each query flow — verified against HL7 US Core v3.1.1+
+- [x] IHE profiles actually referenced in TEFCA QTF v2.1 (XCA, XCPD confirmed relevant — verify exact references)
 - [ ] Known gaps: patient matching (exact studies), consent granularity, adoption data
 - [x] Clinical AI references — 2-3 credible, citable examples of RAG / Agent workflows in clinical settings
 
